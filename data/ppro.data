@@ -1,0 +1,59 @@
+'(("CMOVB" "CMOVNAE" "CMOVC") 
+  ((NONE #x0F NONE NONE (5 #x40 (B)) reg NO RING-3))
+  "")
+
+'(("CMOVBE" "CMOVNA") 
+  ((NONE #x0F NONE NONE (5 #x40 (NA)) reg NO RING-3))
+  "")
+
+'(("CMOVL" "CMOVNGE")
+  ((NONE #x0F NONE NONE (5 #x40 (LT)) reg NO RING-3))
+  "")
+
+'(("CMOVNB" "CMOVAE" "CMOVNC") 
+  ((NONE #x0F NONE NONE (5 #x40 (AE)) reg NO RING-3))
+  "")
+
+'(("CMOVNBE" "CMOVA")
+  ((NONE #x0F NONE NONE (5 #x40 (A)) reg NO RING-3))
+  "")
+
+'(("CMOVNL" "CMOVGE")
+  ((NONE #x0F NONE NONE (5 #x40 (GE)) reg NO RING-3))
+  "")
+
+'(("CMOVNLE" "CMOVG")
+  ((NONE #x0F NONE NONE (5 #x40 (LE)) reg NO RING-3))
+  "")
+
+'(("CMOVNO")
+  ((NONE #x0F NONE NONE (5 #x40 (NO)) reg NO RING-3))
+  "")
+
+'(("CMOVNP" "CMOVPO")
+  ((NONE #x0F NONE NONE (5 #x40 (NP)) reg NO RING-3))
+  "")
+
+'(("CMOVNS")
+  ((NONE #x0F NONE NONE (5 #x40 (NS)) reg NO RING-3))
+  "")
+
+'(("CMOVNZ" "CMOVNE") 
+  ((NONE #x0F NONE NONE (5 #x40 (NE)) reg NO RING-3))
+  "")
+
+'(("CMOVO")
+  ((NONE #x0F NONE NONE (5 #x40 (OF)) reg NO RING-3))
+  "")
+
+'(("CMOVP" "CMOVPE") 
+  ((NONE #x0F NONE NONE (5 #x40 (P)) reg NO RING-3))
+  "")
+
+'(("CMOVS")
+  ((NONE #x0F NONE NONE (5 #x40 (SN)) reg NO RING-3))
+  "")
+
+'(("CMOVZ" "CMOVE")
+  ((NONE #x0F NONE NONE (5 #x40 (EQ)) reg NO RING-3))
+  "")

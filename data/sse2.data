@@ -1,0 +1,23 @@
+'(("ADDPD")
+  (#x66 #x0F NONE NONE (8 #x58 (NONE) reg NO RING-3))
+  "Add Packed Double-FP Values")
+
+'(("ADDSD")
+  (#xF2 #x0F NONE NONE (8 #x58 (NONE) reg NO RING-3))
+  "Add Scalar Double-FP Values")
+
+'(("ANDNPD")
+  (#x66 #x0F NONE NONE (8 #x55 (NONE) reg NO RING-3))
+  "Bitwise Logical AND NOT of Packed Double-FP Values")
+
+'(("ANDPD")
+  (#x66 #x0F NONE NONE (8 #x54 (NONE) reg NO RING-3))
+  "Bitwise Logical AND of Packed Double-FP Values")
+
+'(("CLFLUSH")
+  ((#x66 #x0F NONE NONE (8 #xAE (NONE) 7 NO RING-3))
+  "Flush Cache Line")
+
+'(("CMPSD")
+  ((#x66 #x0F NONE NONE (8 #xC2 (NONE)) reg NO RING-3))
+  "Compare Scalar Double-FP Values")

@@ -1,1 +1,3 @@
-'("BOUND"  ('NONE 'NONE '(8 #x62) 'NONE 'reg))
+'(("BOUND" "Check-Array-Bounds")
+   (('NONE 'NONE '(8 #x62 (D)) 'NONE 'reg INT-FLAG))
+   "Check Array Index Against Bounds")

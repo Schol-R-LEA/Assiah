@@ -1,7 +1,7 @@
 #!r6rs
 
 (library 
- (thelema bootstrap opcodes)
+ (assiah bootstrap opcodes)
  (export instruction opcode-sub-fields opcode-format)
  (import
   (rnrs base (6))

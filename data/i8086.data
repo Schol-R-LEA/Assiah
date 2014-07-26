@@ -1,82 +1,66 @@
-'("AAA" ((NONE NONE NONE NONE (8 #x37 (NONE)) NONE NO)))
+'(("AAA" "ASCII-Adjust-After-Addition") 
+  ((NONE NONE NONE NONE (8 #x37 (NONE)) NONE NO RING-3))
+  "ASCII Adjust AL After Addition")
 
-'("AAD" ((NONE NONE NONE #x0A (8 #xD5 (NONE)) NONE NO)))
+'(("AAD" "ASCII-Adjust-Before-Division") 
+  ((NONE NONE NONE #x0A (8 #xD5 (NONE)) NONE NO RING-3))
+  "ASCII Adjust AX Before Division")
 
-'("AAM" ((NONE NONE NONE #x0A (8 #xD4 (NONE)) NONE NO)))
+'(("AAM" "ASCII-Adjust-After-Multiplication") 
+  ((NONE NONE NONE #x0A (8 #xD4 (NONE)) NONE NO RING-3))
+  "ASCII Adjust AX After Multiply")
 
-'("AAS" ((NONE NONE NONE NONE (8 #xEF (NONE)) NONE NO)))
- 
-'("ADC" ((NONE NONE NONE NONE (6 #x10 (D W)) reg REG-DEST-ONLY)
-         (NONE NONE NONE NONE (7 #x14 (W)) NONE NO)
-         (NONE NONE NONE NONE (4 #x80 (S W)) 2 ALLOWED)))
- 
-'("ADD" ((NONE NONE NONE NONE (6 #x00 (D W)) reg REG-DEST-ONLY)
-         (NONE NONE NONE NONE (7 #x04 (W)) NONE NO)
-         (NONE NONE NONE NONE (4 #x80 (S W)) 0 ALLOWED)))
-  
-'("AND" ((NONE NONE NONE NONE (6 #x20 (D W)) reg REG-DEST-ONLY)
-         (NONE NONE NONE NONE (7 #x24 (W)) NONE NO)
-         (NONE NONE NONE NONE (4 #x80 (S W)) 4 ALLOWED)))
+'(("AAS" "ASCII-Adjust-After-Subtraction") 
+  ((NONE NONE NONE NONE (8 #xEF (NONE)) NONE NO RING-3))
+  "ASCII Adjust AL After Subtraction")
 
-'("CALL" ((NONE NONE NONE NONE (8 #xE8 (NONE)) NONE NO)
-          (NONE NONE NONE NONE (8 #xFF (NONE)) 2 NO)))
-          
- ("CALLF" ((NONE NONE NONE NONE (8 #x9A (NONE)) NONE NO)
-           (NONE NONE NONE NONE (8 #xFF (NONE)) 3 NO)))
-           
-'("CBW" ((NONE NONE (8 #x98 (NONE)) NONE NO)))
+'(("ADC" "Add-With-Carry") 
+  ((NONE NONE NONE NONE (6 #x10 (D W)) reg REG-DEST-ONLY RING-3)
+   (NONE NONE NONE NONE (7 #x14 (W)) NONE NO RING-3)
+   (NONE NONE NONE NONE (4 #x80 (S W)) 2 ALLOWED RING-3))
+  "Add With Carry")
 
-'("CLC" ((NONE NONE (8 #xF8 (NONE)) NONE NO)))
+'(("ADD")
+  ((NONE NONE NONE NONE (6 #x00 (D W)) reg REG-DEST-ONLY RING-3)
+   (NONE NONE NONE NONE (7 #x04 (W)) NONE NO RING-3)
+   (NONE NONE NONE NONE (4 #x80 (S W)) 0 ALLOWED RING-3))
+  "Add")
 
-'("CLD" ((NONE NONE (8 #xFC (NONE)) NONE NO)))
+'(("AND" "Logical-And")
+  ((NONE NONE NONE NONE (6 #x20 (D W)) reg REG-DEST-ONLY RING-3)
+   (NONE NONE NONE NONE (7 #x24 (W)) NONE NO RING-3))
+  "Logical And")
 
-'("CLI" ((NONE NONE (8 #xFA (NONE)) NONE NO)))
+'(("CALL")
+  ((NONE NONE NONE NONE (8 #xE8 (NONE)) NONE NO RING-3)
+   (NONE NONE NONE NONE (8 #xFF (NONE)) 2 NO RING-3))
+  "Call Procedure")
 
-'("CMC" ((NONE NONE (8 #xF5 (NONE)) NONE NO)))
+'(("CALLF" "Far-Call")
+ ((NONE NONE NONE NONE (8 #x9A (NONE)) NONE NO RING-3)
+  (NONE NONE NONE NONE (8 #xFF (NONE)) 3 NO RING-3))
+ "Call Procedure with a Far Argument")
 
+'(("CBW" "Byte->Word") 
+  ((NONE NONE NONE NONE (8 #x98 (NONE)) NONE NO RING-3))
+  "Convert Byte to Word")
 
- (hashtable-set! i8086-mnemonics 'CMP (make-x86-instruction
-                                      "CMP"
-                                      (list (make-x86-opcode-field-set
-                                             (make-x86-opcode 'NONE 'NONE #x38 'NONE 'reg) binary-r/m-reg '(BYTE BYTE))
-                                            (make-x86-opcode-field-set
-                                             (make-x86-opcode 'NONE 'NONE #x39 'NONE 'reg) binary-r/m-reg '(SYSTEM-WORD SYSTEM-WORD))
-                                            (make-x86-opcode-field-set
-                                             (make-x86-opcode 'NONE 'NONE #x3A 'NONE 'reg) binary-reg-r/m '(BYTE BYTE))
-                                            (make-x86-opcode-field-set
-                                             (make-x86-opcode 'NONE 'NONE #x3B 'NONE 'reg) binary-reg-r/m '(BYTE SYSTEM-WORD))
-                                            (make-x86-opcode-field-set
-                                             (make-x86-opcode 'NONE 'NONE #x3C 'NONE 'NONE) binary-acc-imm '(BYTE))
-                                            (make-x86-opcode-field-set
-                                             (make-x86-opcode 'NONE 'NONE #x3D 'NONE 'NONE) binary-acc-imm '(SYSTEM-WORD))
-                                            (make-x86-opcode-field-set
-                                             (make-x86-opcode 'NONE 'NONE #x80 'NONE 7) binary-r/m-imm '(BYTE BYTE))
-                                            (make-x86-opcode-field-set
-                                             (make-x86-opcode 'NONE 'NONE #x81 'NONE 7) binary-r/m-imm '(SYSTEM-WORD SYSTEM-WORD))
-                                            (make-x86-opcode-field-set
-                                             (make-x86-opcode 'NONE 'NONE #x82 'NONE 7) binary-r/m-imm '(BYTE BYTE))
-                                            (make-x86-opcode-field-set
-                                             (make-x86-opcode 'NONE 'NONE #x83 'NONE 7) binary-r/m-imm '(SYSTEM-WORD BYTE)))))
- (hashtable-set! i8086-mnemonics 'CMPSB (make-x86-instruction
-                                      "CMPSB"
-                                      (list (make-x86-opcode-field-set
-                                             (make-x86-opcode 'NONE 'NONE #xA6 'NONE 'NONE) binary-mem-mem '(BYTE BYTE)))))
- (hashtable-set! i8086-mnemonics 'CMPSW (make-x86-instruction
-                                      "CMPSW"
-                                      (list (make-x86-opcode-field-set
-                                             (make-x86-opcode 'NONE 'NONE #xA7 'NONE 'NONE) binary-mem-mem '(SYSTEM-WORD SYSTEM-WORD)))))
- 
- (hashtable-set! i8086-mnemonics 'CMPSW (make-x86-instruction
-                                      "CMPSW"
-                                      (list (make-x86-opcode-field-set
-                                             (make-x86-opcode 'NONE 'NONE #xA7 'NONE 'NONE) binary-mem-mem '(SYSTEM-WORD SYSTEM-WORD)))))
- (hashtable-set! i8086-mnemonics 'CMPSW (make-x86-instruction
-                                      "CMPSW"
-                                      (list (make-x86-opcode-field-set
-                                             (make-x86-opcode 'NONE 'NONE #xA7 'NONE 'NONE) binary-mem-mem '(SYSTEM-WORD SYSTEM-WORD)))))
- 
- 
- 
- 
- 
- 
+'(("CLC" "Clear-Carry-Flag")
+  ((NONE NONE NONE NONE (8 #xF8 (NONE)) NONE NO RING-3))
+  "Clear Carry Flag")
+
+'(("CLD" "Clear-Direction-Flag")
+  ((NONE NONE NONE NONE (8 #xFC (NONE)) NONE NO RING-3))
+  "Clear Direction Flag")
+
+'(("CLI" "Disable-Interrupts")
+  ((NONE NONE NONE NONE (8 #xFA (NONE)) NONE NO RING-3))
+  "Clear Interrupt Flag")
+
+'(("CMC" "Toggle-Carry-Flag")
+  ((NONE NONE NONE NONE (8 #xF5 (NONE)) NONE NO RING-3))
+  "Complement Carry Flag")
+
+'(("CMPS" "Compare-String")
+  ((NONE NONE NONE NONE (7 #xA6 (W)) NONE NO RING-3))
+  "Compare String Operands")

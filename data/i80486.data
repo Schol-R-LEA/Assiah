@@ -1,0 +1,7 @@
+'(("BSWAP")
+  ((NONE #x0F NONE NONE (4 #xC8 (R+)) 4 NO RING-3))
+  "Swap Bytes")
+
+'(("CMPXCHG" "Compare-And-Exchange")
+  ((NONE #x0F NONE NONE (4 #xB0 (W)) reg ALLOWED RING-3))
+  "Compare and Exchange")

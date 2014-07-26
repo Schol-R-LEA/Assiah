@@ -1,0 +1,7 @@
+'(("ADDSUBPD")
+  (#x66 #x0F NONE NONE (8 #xD0 (NONE) reg NO RING-3))
+  "") 
+
+'(("ADDSUBSS")
+  (#xF2 #x0F NONE NONE (8 #xD0 (NONE) reg NO RING-3))
+  "")

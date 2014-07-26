@@ -1,0 +1,19 @@
+'(("ADDPS") 
+  (NONE #x0F NONE NONE (8 #x58 (NONE) reg NO RING-3))
+  "Add Packed Single-FP Values")
+
+'(("ADDSS") 
+  (#xF3 #x0F NONE NONE (8 #x58 (NONE) reg NO RING-3))
+  "Add Scalar Single-FP Values")
+
+'(("ANDNPS") 
+  (NONE #x0F NONE NONE (8 #x55 (NONE) reg NO RING-3))
+  "Bitwise Logical AND NOT of Packed Single-FP Values")
+
+'(("ANDPS") 
+  (NONE #x0F NONE NONE (8 #x54 (NONE) reg NO RING-3))
+  "Bitwise Logical AND of Packed Single-FP Values")
+
+'(("CMPPS") 
+  ((NONE #x0F NONE NONE (8 #xC2 (NONE)) reg NO RING-3))
+  "Compare Scalar Single-FP Values")

@@ -1,1 +1,7 @@
-#lang racket
+'(("ARPL" "Adjust-Segment-RPL") 
+  (NONE NONE NONE NONE (8 #x63 (NONE) reg NO RING-3))
+  "Adjust RPL Field of Segment Selector")
+
+'(("CLTS" "Clear-Task-Switch-Flag-CR0")
+  (NONE #x0F NONE NONE (8 #x06 (NONE) reg NO RING-0))
+  "Clear Task-Switched Flag in CR0")
