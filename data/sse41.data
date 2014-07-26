@@ -2,11 +2,14 @@
   (#x66 #x0F NONE #x0D (8 #x3A (NONE) reg NO RING-3))
   "")
 
-'(("BLENDPS") (#x66 #x0F NONE #x0C (8 #x3A (NONE) reg NO RING-3))
+'(("BLENDPS") 
+  (#x66 #x0F NONE #x0C (8 #x3A (NONE) reg NO RING-3))
   "")
 
-'(("BLENDVPD") (#x66 #x0F NONE #x15 (8 #x3A (NONE) reg NO RING-3))
+'(("BLENDVPD") 
+  (#x66 #x0F NONE #x15 (8 #x3A (NONE) reg NO RING-3))
   "")
 
-'(("BLENDVPS") (#x66 #x0F NONE #x14 (8 #x3A (NONE) reg NO RING-3))
+'(("BLENDVPS") 
+  (#x66 #x0F NONE #x14 (8 #x3A (NONE) reg NO RING-3))
   "")

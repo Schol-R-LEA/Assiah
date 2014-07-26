@@ -2,7 +2,9 @@
 
 (library 
  (assiah bootstrap opcodes)
- (export instruction opcode-sub-fields opcode-format)
+ (export instruction make-instruction instruction? 
+         opcode-sub-fields make-opcode-sub-fields opcode-sub-fields? 
+         opcode-format make-opcode-format opcode-format?)
  (import
   (rnrs base (6))
   (rnrs enums (6))
@@ -10,11 +12,11 @@
   (rnrs lists (6))
   (rnrs records syntactic (6)))
  
- (define-record-type instruction
+ (define-record-type (instruction make-instruction instruction?)
    (fields mnemonic opcode-format-list))
  
- (define-record-type opcode-sub-fields
+ (define-record-type (opcode-sub-fields make-opcode-sub-fields opcode-sub-fields?)
    (fields size bit-index))
  
- (define-record-type opcode-format
-   (fields opcode opcode-sub-field-map))
+ (define-record-type (opcode-format make-opcode-format opcode-format?)
+   (fields opcode opcode-sub-field-map)))

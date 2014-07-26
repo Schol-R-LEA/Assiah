@@ -61,6 +61,24 @@
   ((NONE NONE NONE NONE (8 #xF5 (NONE)) NONE NO RING-3))
   "Complement Carry Flag")
 
+'(("CMP" "Compare")
+  ((NONE NONE NONE NONE (6 #x00 (D W)) reg NO RING-3)
+   (NONE NONE NONE NONE (7 #x04 (W)) NONE NO RING-3)
+   (NONE NONE NONE NONE (4 #x80 (S W)) 0 NO RING-3))
+  "Compare Two Operands")
+
 '(("CMPS" "Compare-String")
   ((NONE NONE NONE NONE (7 #xA6 (W)) NONE NO RING-3))
   "Compare String Operands")
+
+'(("CWD") 
+  ((NONE NONE NONE NONE (8 #x99 (NONE)) NONE NO RING-3))
+  "Convert Word to Double")
+
+'(("DAA" "Decimal-Adjust-After-Addition") 
+  ((NONE NONE NONE NONE (8 #x37 (NONE)) NONE NO RING-3))
+  "Decimal Adjust AL After Addition")
+
+'(("DAS" "Decimal-Adjust-After-Addition") 
+  ((NONE NONE NONE NONE (8 #x37 (NONE)) NONE NO RING-3))
+  "Decimal Adjust AL After Subtraction")

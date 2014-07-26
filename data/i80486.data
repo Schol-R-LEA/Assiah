@@ -5,3 +5,7 @@
 '(("CMPXCHG" "Compare-And-Exchange")
   ((NONE #x0F NONE NONE (4 #xB0 (W)) reg ALLOWED RING-3))
   "Compare and Exchange")
+
+'(("CPUID" "Get-CPU-Model")
+  ((NONE #x0F NONE NONE (4 #xA2 (W)) NONE NO RING-3))
+  "CPU Identification")

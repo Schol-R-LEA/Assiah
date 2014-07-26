@@ -1,0 +1,4 @@
+'(("CRC32") 
+  (#xF2 #x0F NONE #xF0 (8 #x38 (NONE)) reg NO RING-3)
+  (#xF2 #x0F NONE #xF1 (8 #x38 (NONE)) reg NO RING-3)
+  "Accumulate CRC32 value")
