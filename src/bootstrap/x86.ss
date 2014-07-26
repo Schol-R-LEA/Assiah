@@ -28,6 +28,8 @@
   (rnrs conditions (6))
   (bootstrap opcodes))
  
+ (define NONE '())
+ 
  (define-enumeration 
    x86-lockable-states
    (NO REG-DEST-ONLY MEM-DEST-ONLY ALLOWED REQUIRED) 
