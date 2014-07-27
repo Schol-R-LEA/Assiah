@@ -15,7 +15,7 @@
  (define-record-type (instruction make-instruction instruction?)
    (fields mnemonic opcode-format-list))
  
-  (define-record-type (opcode-format make-opcode-format opcode-format?)
+ (define-record-type (opcode-format make-opcode-format opcode-format?)
    (fields opcode opcode-sub-field-map)))
  
  (define-record-type (opcode-sub-fields make-opcode-sub-fields opcode-sub-fields?)
