@@ -1,3 +1,7 @@
 '(("BOUND" "Check-Array-Bounds")
-   (('NONE 'NONE '(8 #x62 (D)) 'NONE 'reg INT-FLAG))
+   ((NONE NONE NONE NONE (8 #x62 (D)) reg NO INT-FLAG))
    "Check Array Index Against Bounds")
+
+'(("ENTER")
+   ((NONE NONE NONE NONE (8 #xC8 (NONE)) NONE NO RING-3))
+   "Make Stack Frame for Procedure Parameters")

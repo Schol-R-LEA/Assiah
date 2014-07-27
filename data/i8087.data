@@ -1,0 +1,128 @@
+'(("F2XM1") 
+  ((NONE NONE NONE #xF0 (8 #xD9 (NONE)) 6 NO RING-3))
+  " 	Compute 2x^-1")
+
+'(("FABS") 
+  ((NONE NONE NONE #xE1 (8 #xD9 (NONE)) 6 NO RING-3))
+  "FP Absolute Value")
+
+'(("FADD")
+  ((NONE NONE NONE NONE (6 #xD8 (M F)) 0 NO RING-3))
+  "FP Addition")
+
+'(("FADDP")
+  ((NONE NONE NONE NONE (8 #xDE (NONE)) 0 NO RING-3)
+   (NONE NONE NONE #xC1 (8 #xDE (NONE)) 0 NO RING-3))
+  "FP Addition folllowed by Pop from FP Stack")
+
+'(("FBLD")
+  ((NONE NONE NONE NONE (8 #xDF (NONE)) 4 NO RING-3))
+  "Load Binary Coded Decimal to FP Stack")
+
+'(("FBSTP")
+  ((NONE NONE NONE NONE (8 #xDF (NONE)) 6 NO RING-3))
+  "Store Binary Coded Decimal from FP Stack and Pop")
+
+'(("FCHS")
+  ((NONE NONE NONE #xE0 (8 #xD9 (NONE)) 4 NO RING-3))
+  "Change Sign of Value on FP Stack")
+
+'(("FCLEX")
+  ((#x9B NONE NONE #xE2 (8 #xDB (NONE)) 4 NO RING-3))
+  "Clear FP Exceptions")
+
+'(("FCOM")
+  ((NONE NONE NONE NONE (6 #xD8 (M F)) 2 NO RING-3)
+   (NONE NONE NONE #xD1 (8 #xD8 (NONE)) 2 NO RING-3))
+  "Compare Floating Point Values")
+
+'(("FCOMP")
+  ((NONE NONE NONE NONE (6 #xD8 (M F)) 3 NO RING-3)
+   (NONE NONE NONE #xD9 (8 #xD8 (NONE)) 3 NO RING-3))
+  "Compare Floating Point Values and Pop")
+
+'(("FCOMPP")
+  ((NONE NONE NONE #xD9 (8 #xDE (NONE)) 3 NO RING-3))
+  "Compare Floating Point Values and Pop Twice") 
+
+'(("FCOS")
+  ((NONE NONE NONE #xFF (8 #xD9 (NONE)) 7 NO RING-3))
+  "Compute Cosine")
+
+'(("FDECSTP")
+  ((NONE NONE NONE #xF6 (8 #xD9 (NONE)) 7 NO RING-3))
+  "Decrement Stack-Top Pointer")
+
+'(("FDIV")
+  ((NONE NONE NONE #xF6 (6 #xD8 (M F)) 6 NO RING-3)
+   (NONE NONE NONE #xF6 (8 #xDC (NONE)) 7 NO RING-3))
+  "FP Division")
+
+'(("FDIVP")
+  ((NONE NONE NONE NONE (8 #xDE (NONE)) 7 NO RING-3)
+   (NONE NONE NONE #xF9 (8 #xDE (NONE)) 7 NO RING-3))
+  "FP Division and Pop")
+
+'(("FDIVR")
+  ((NONE NONE NONE NONE (6 #xD8 (M F)) 7 NO RING-3)
+   (NONE NONE NONE #xF9 (8 #xDC (NONE)) 6 NO RING-3))
+  "FP Reverse-Division")
+
+'(("FDIVRP")
+  ((NONE NONE NONE NONE (8 #xDE (NONE)) 6 NO RING-3)
+   (NONE NONE NONE #xF1 (8 #xDE (NONE)) 6 NO RING-3))
+  "FP Reverse-Division and Pop")
+
+'(("FFREE")
+  ((NONE NONE NONE NONE (8 #xDD (NONE)) 0 NO RING-3))
+  "Free Floating-Point Register")
+
+'(("FFREEP")
+  ((NONE NONE NONE NONE (8 #xDF (NONE)) 0 NO RING-3))
+  "Free Floating-Point Register")
+
+'(("FIADD")
+  ((NONE NONE NONE NONE (6 #xDA (M F)) 0 NO RING-3))
+  "FP Add Integer")
+
+'(("FICOM")
+  ((NONE NONE NONE NONE (6 #xDA (M F)) 2 NO RING-3))
+  "FP Compare Integer")
+
+'(("FICOMP")
+  ((NONE NONE NONE NONE (6 #xDA (M F)) 3 NO RING-3))
+  "FP Compare Integer")
+
+'(("FIDIV")
+  ((NONE NONE NONE NONE (6 #xDA (M F)) 6 NO RING-3))
+  "FP Divide Integer")
+
+'(("FIDIVR")
+  ((NONE NONE NONE NONE (6 #xDA (M F)) 7 NO RING-3))
+  "FP Reverse-Divide Integer")
+
+'(("FILD")
+  ((NONE NONE NONE NONE (6 #xDB (M F)) 0 NO RING-3)
+   (NONE NONE NONE NONE (8 #xDF (NONE)) 5 NO RING-3))
+  "FP Load Integer")
+
+'(("FIMUL")
+  ((NONE NONE NONE NONE (6 #xDA (M F)) 1 NO RING-3))
+  "FP Multiply Integer")
+
+'(("FINCSTP")
+  ((NONE NONE NONE #xF7 (8 #xD9 (NONE)) 6 NO RING-3))
+  "FP Increment Stack-Top Pointer")
+
+'(("FINIT")
+  ((#x9B NONE NONE #xE3 (8 #xD9 (NONE)) 4 NO RING-3))
+  "Initialize Floating-Point Unit")
+
+'(("FIST")
+  ((NONE NONE NONE NONE (6 #xDB (M F)) 2 NO RING-3))
+  "FP Store Integer")
+
+'(("FISTP")
+  ((NONE NONE NONE NONE (6 #xDB (M F)) 3 NO RING-3))
+  "FP Store Integer and Pop")
+

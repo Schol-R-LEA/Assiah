@@ -24,7 +24,7 @@
   ((NONE NONE NONE NONE (6 #x00 (D W)) reg REG-DEST-ONLY RING-3)
    (NONE NONE NONE NONE (7 #x04 (W)) NONE NO RING-3)
    (NONE NONE NONE NONE (4 #x80 (S W)) 0 ALLOWED RING-3))
-  "Add")
+  "Addition")
 
 '(("AND" "Logical-And")
   ((NONE NONE NONE NONE (6 #x20 (D W)) reg REG-DEST-ONLY RING-3)
@@ -82,3 +82,12 @@
 '(("DAS" "Decimal-Adjust-After-Addition") 
   ((NONE NONE NONE NONE (8 #x37 (NONE)) NONE NO RING-3))
   "Decimal Adjust AL After Subtraction")
+
+'(("DEC" "Decrement") 
+  ((NONE NONE NONE NONE (5 #x48 (R+)) NONE NO RING-3)
+   (NONE NONE NONE NONE (7 #xFE (W)) 1 NO RING-3))
+  "Decrement operand")
+
+'(("DIV" "Divide") 
+   (NONE NONE NONE NONE (7 #xF6 (W)) 6 NO RING-3))
+  "Division")

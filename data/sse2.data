@@ -89,3 +89,11 @@
 '(("CVTTSD2SI")
   ((#xF2 #x0F NONE NONE (8 #x2C (NONE)) reg NO RING-3))
   "Convert with Trunc. Packed Double-FP Values to DW Integers")
+
+'(("DIVPD") 
+  ((#x66 #x0F NONE NONE (8 #x5E (NONE)) reg NO RING-3))
+  "Divide Packed Double-FP Values")
+
+'(("DIVSD") 
+  ((#xF2 #x0F NONE NONE (8 #x5E (NONE)) reg NO RING-3))
+  "Divide Scalar Double-FP Values")

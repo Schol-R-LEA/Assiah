@@ -1,15 +1,27 @@
 '(("BLENDPD")
-  (#x66 #x0F NONE #x0D (8 #x3A (NONE) reg NO RING-3))
-  "")
+  ((#x66 #x0F NONE #x0D (8 #x3A (NONE)) reg NO RING-3))
+  ""))
 
 '(("BLENDPS") 
-  (#x66 #x0F NONE #x0C (8 #x3A (NONE) reg NO RING-3))
+  ((#x66 #x0F NONE #x0C (8 #x3A (NONE)) reg NO RING-3))
   "")
 
 '(("BLENDVPD") 
-  (#x66 #x0F NONE #x15 (8 #x3A (NONE) reg NO RING-3))
+  ((#x66 #x0F NONE #x15 (8 #x3A (NONE)) reg NO RING-3))
   "")
 
 '(("BLENDVPS") 
-  (#x66 #x0F NONE #x14 (8 #x3A (NONE) reg NO RING-3))
+  ((#x66 #x0F NONE #x14 (8 #x3A (NONE)) reg NO RING-3))
   "")
+
+'(("DPPD") 
+  ((#x66 #x0F NONE #x41 (8 #x3A (NONE)) reg NO RING-3))
+  "Dot Product of Packed Double-FP Values")
+
+'(("DPPS") 
+  ((#x66 #x0F NONE #x40 (8 #x3A (NONE)) reg NO RING-3))
+  "Dot Product of Packed Single-FP Values")
+
+'(("EXTRACTPS") 
+  ((#x66 #x0F NONE #x17 (8 #x3A (NONE)) reg NO RING-3))
+  "Extract Packed Single-FP Value")

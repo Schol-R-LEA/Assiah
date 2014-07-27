@@ -45,3 +45,11 @@
 '(("CVTTSD2SI")
   ((#xF3 #x0F NONE NONE (8 #x2C (NONE)) reg NO RING-3))
   "Convert with Trunc. Packed Single-FP Values to DW Integers")
+
+'(("DIVPS") 
+  ((NONE #x0F NONE NONE (8 #x5E (NONE)) reg NO RING-3))
+  "Divide Packed Single-FP Values")
+
+'(("DIVSS") 
+  ((#xF3 #x0F NONE NONE (8 #x5E (NONE)) reg NO RING-3))
+  "Divide Scalar Single-FP Values")

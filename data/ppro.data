@@ -61,3 +61,43 @@
 '(("CMOVZ" "CMOVE")
   ((NONE #x0F NONE NONE (5 #x40 (EQ)) reg NO RING-3))
   "Conditional Move - zero/equal (ZF=0)")
+
+'(("FMOVB")
+  ((NONE NONE NONE NONE (8 #xDA (NONE)) 0 NO RING-3))
+  "FP Conditional Move - below (CF=1)")
+
+'(("FMOVBE")
+  ((NONE NONE NONE NONE (8 #xDA (NONE)) 2 NO RING-3))
+  "FP Conditional Move - below or equal (CF=1 or ZF=1)")
+
+'(("FMOVE")
+  ((NONE NONE NONE NONE (8 #xDA (NONE)) 1 NO RING-3))
+  "FP Conditional Move - equal (ZF=1)")
+
+'(("FMOVNB")
+  ((NONE NONE NONE NONE (8 #xDB (NONE)) 0 NO RING-3))
+  "FP Conditional Move - not below (CF=0)")
+
+'(("FMOVNBE")
+  ((NONE NONE NONE NONE (8 #xDB (NONE)) 2 NO RING-3))
+  "FP Conditional Move - below or equal (CF=0 and ZF=0)")
+
+'(("FMOVNE")
+  ((NONE NONE NONE NONE (8 #xDB (NONE)) 1 NO RING-3))
+  "FP Conditional Move - not equal (ZF=0)")
+
+'(("FMOVNU")
+  ((NONE NONE NONE NONE (8 #xDB (NONE)) 3 NO RING-3))
+  "FP Conditional Move - not unordered (PF=0)")
+
+'(("FMOVNE")
+  ((NONE NONE NONE NONE (8 #xDA (NONE)) 3 NO RING-3))
+  "FP Conditional Move - unordered (PF=1)")
+
+'(("FCOMI")
+  ((NONE NONE NONE NONE (6 #xD8 (NONE)) 6 NO RING-3))  
+  "Compare Floating Point Values and Set EFLAGS")
+
+'(("FCOMIP")
+  ((NONE NONE NONE NONE (6 #xDF (NONE)) 6 NO RING-3))  
+  "Compare Floating Point Values and Set EFLAGS and Pop")
