@@ -15,6 +15,6 @@
       ((define-pattern ?name ((?pattern-1 => ?value-1) (?pattern-2 => ?value-2) ... )))
        (define ?name 
         (let loop ((next-pattern ?pattern)
-                          (next-value ?value))
+                   (next-value ?value))
           (list (cons next-pattern next-value)
                 (loop (?pattern-2 ?value-2 ...))))))))
