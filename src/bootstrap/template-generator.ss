@@ -11,7 +11,7 @@
   (define-syntax define-pattern
     (syntax-rules (?name => ?pattern ?value)
       ((define-pattern ?name ((?pattern => ?value)))
-       (define name (cons `?pattern ?value)))
+       (define name (list (cons '?pattern ?value))))
       ((define-pattern ?name ((?pattern-1 => ?value-1) (?pattern-2 => ?value-2) ... )))
        (define ?name 
         (let loop ((next-pattern ?pattern)
