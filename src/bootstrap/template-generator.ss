@@ -8,8 +8,8 @@
     (rnrs lists (6))
     (rnrs records syntactic (6)))
     
-  (define-syntax define-pattern
-    (syntax-rules (?name => ?pattern ?value)
+  (define-syntax define-field-pattern
+    (syntax-rules (=>)
       ((_ ?name ((?pattern => ?value)))
        (define name (list (cons '?pattern ?value))))
       ((_ ?name ((?pattern-0 => ?value-0) (?pattern-1 => ?value-1)))
