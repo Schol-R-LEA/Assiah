@@ -12,6 +12,8 @@
     (syntax-rules (?name => ?pattern ?value)
       ((_ ?name ((?pattern => ?value)))
        (define name (list (cons '?pattern ?value))))
+      ((_ ?name ((?pattern-0 => ?value-0) (?pattern-1 => ?value-1)))
+       (define ?name (list (cons '?pattern-0 ?value-0) (cons '?pattern-1 ?value-1))))
       ((_ ?name ((?pattern-1 => ?value-1) (?pattern-2 => ?value-2) ... )))
        (define ?name 
         (let loop ((next-pattern ?pattern)
