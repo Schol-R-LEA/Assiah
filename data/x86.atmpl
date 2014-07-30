@@ -31,6 +31,39 @@
    ("ESI" => #b110)
    ("EDI" => #b111)))
 
+
+(define-field R/M-8 (width 3) (index 0)
+  (("AL" => #b000)
+   ("CL" => #b001)
+   ("DL" => #b010)
+   ("BL" => #b011)
+   ("AH" => #b100)
+   ("CH" => #b101)
+   ("DH" => #b110)
+   ("BH" => #b111)))
+
+(define-field R/M-16 (width 3) (index 0)
+  (("AX" => #b000)
+   ("CX" => #b001)
+   ("DX" => #b010)
+   ("BX" => #b011)
+   ("SP" => #b100)
+   ("BP" => #b101)
+   ("SI" => #b110)
+   ("DI" => #b111)))
+   
+
+(define-field R/M-32 (width 3) (index 0)
+  (("EAX" => #b000)
+   ("ECX" => #b001)
+   ("EDX" => #b010)
+   ("EBX" => #b100)
+   ("ESP" => #b100)
+   ("EBP" => #b101)
+   ("ESI" => #b110)
+   ("EDI" => #b111)))
+
+
 (define-property SYSTEM-REG
   (case (System-Word)
     ((16) REG-16)
@@ -38,9 +71,17 @@
 
 (define-option REG (REG-8 SYSTEM-REG))
 
-(define-option INDEX-BASE (REG SIB))
+(define-property SYSTEM-R/M
+  (case (System-Word)
+    ((16) R/M-16)
+    ((32) R/M-32)))
 
-(define-option INDEX-BASE-OR-DISPLACEMENT (INDEX-BASE INT-32))
+(define-option R/M (R/M-8 SYSTEM-R/M))
+
+(define-option INDEX-BASE ((exclude ("AH" "SP" "ESP") R/M)))
+
+(define-option INDEX-BASE-OR-DISPLACEMENT ((exclude ("EBP") INDEX-BASE) 
+                                           INT-32))
 
 (define-pattern SCALE-8
   ("SCALE" INT-8 INT-8 SCALE-REG))
@@ -49,10 +90,15 @@
 (define-option INDEX-16 (INT-16 EQUATE-16))
 (define-option INDEX-32 (INT-32 EQUATE-32))
 
+(define-property SYSTEM-INDEX
+  (case (System-Word)
+    ((16) INDEX-16)
+    ((32) INDEX-32)))
+
 (define-field MOD (width 2) (index 6)                      
-  ((sub-instruction ("Ref" INDEX-BASE-OR-DISPLACEMENT => 00) ; (ADD EBX (REF EAX))
-   (sub-instruction ("Ref" INDEX-BASE INDEX-8 => 01))        ; (ADD EBX (REF AL 2))
-   (sub-instruction ("Ref" INDEX-BASE INDEX-32 => 10))       ; (ADD EBX (REF EAX 512))
-   (REG => 11)))                                             ; (ADD EBX EAX)
+  ((sub-instruction "Ref" INDEX-BASE-OR-DISPLACEMENT) => 00)   ; (ADD EBX (REF EAX))
+   (sub-instruction "Ref" INDEX-BASE INDEX-8) => 01)           ; (ADD EBX (REF AL 2))
+   (sub-instruction "Ref" INDEX-BASE SYSTEM-INDEX) => 10))     ; (ADD EBX (REF EAX 512))
+   (R/M => 11)))                                               ; (ADD EBX EAX)
     
 (define-value MOD-R/M (width 8) (fields MOD REG R/M))
