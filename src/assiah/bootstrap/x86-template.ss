@@ -26,7 +26,7 @@
    ("DI" => #b111)))
 
 
-(define-field-pattern GPR-32 (width 3)
+(define-field-pattern GPR-32 (width 3)  ; 32-bit general-purpose registers
   (("EAX" => #b000)
    ("ECX" => #b001)
    ("EDX" => #b010)
@@ -105,15 +105,15 @@
   ("4" => #b10)
   ("8" => #b11))
 
-(define-pattern SCALE-BARE ("Index" (sub-instruction "Scale" SYSTEM-INDEX SCALE))) 
+(define-pattern SCALE-BARE ("Index" ("Scale" SYSTEM-INDEX SCALE))) 
 ; (ADD EBX (INDEX (SCALE EDX 8)))
-(define-pattern SCALE-W/O-DISP ("Index" SYSTEM-BASE (sub-instruction "Scale" SYSTEM-INDEX SCALE)))  
+(define-pattern SCALE-W/O-DISP ("Index" SYSTEM-BASE ("Scale" SYSTEM-INDEX SCALE)))  
 ; (ADD EBX (INDEX EAX (SCALE EDX 8)))
-(define-pattern SCALE-8 ("Index" BASE-8 (sub-instruction "Scale" SYSTEM-INDEX SCALE) DISP))
+(define-pattern SCALE-8 ("Index" BASE-8 ("Scale" SYSTEM-INDEX SCALE) DISP))
 ; (ADD EBX (INDEX AX (SCALE EDX 8) 4))
-(define-pattern SYSTEM-SCALE ("Index" SYSTEM-BASE (sub-instruction "Scale" SYSTEM-INDEX SCALE) DISP)) 
+(define-pattern SYSTEM-SCALE ("Index" SYSTEM-BASE ("Scale" SYSTEM-INDEX SCALE) DISP)) 
 ; (ADD EBX (INDEX EAX (SCALE EDX 8) 4))
-(define-pattern SCALE-W/O-BASE ("Index" (sub-instruction "Scale" SYSTEM-INDEX SCALE) DISP))  
+(define-pattern SCALE-W/O-BASE ("Index" ("Scale" SYSTEM-INDEX SCALE) DISP))  
 ; (ADD EBX (INDEX (SCALE EDX 8) 4))
 
 (define-option REF/SCALE (REF SCALE-BARE SCALE-W/O-DISP SCALE-W/O-BASE))
@@ -121,9 +121,9 @@
 (define-option REF-SYS/SCALE-SYS (REF-SYSTEM-DISP SYSTEM-SCALE))
 
 (define-field MOD (width 2) (index 6)                      
-  ((sub-instruction REF/SCALE) => #b00)       
-  ((sub-instruction REF-8/SCALE-8) => #b01)      
-  ((sub-instruction REF-SYS/SCALE-SYS) => #b10) 
+  ((REF/SCALE) => #b00)       
+  ((REF-8/SCALE-8) => #b01)      
+  ((REF-SYS/SCALE-SYS) => #b10) 
   (R/M => #b11)) ; (ADD EBX EAX)
 
 (define-value MOD-REG-R/M 

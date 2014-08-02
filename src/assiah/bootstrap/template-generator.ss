@@ -1,16 +1,38 @@
+#!r6rs
+
 (library 
-  (assiah bootstrap telpate-generator)
-  (export define-pattern define-property define-value define-state 
-          define-option define-field define-field-pattern
-          exclude)
-  (import
-    (rnrs base (6))
-    (rnrs lists (6))
-    (rnrs records syntactic (6)))
-    
-  (define-syntax define-field-pattern
-    (syntax-rules (width =>)
-      ((_ ?name (width ?size) ((?pattern => ?value)))
-       (define ?name (list ?size (cons '?pattern ?value))))
-      ((_ ?name (width ?size) ((?pattern-0 => ?value-0) (?pattern-1 => ?value-1)))
-       (define ?name (list ?size (cons '?pattern-0 ?value-0) (cons '?pattern-1 ?value-1)))))))
+ (assiah bootstrap template-generator)
+ (export define-field-pattern get-field-width)
+ (import
+  (rnrs base (6))
+  (rnrs lists (6))
+  (rnrs syntax-case (6))
+  (rnrs io simple (6))
+  (rnrs records syntactic (6)))
+
+
+ (define-syntax define-field-pattern
+  (lambda (x)
+    (syntax-case x (width default =>)
+      ((_ name (width w) ((p-0 ... => value) ... (default => value-n)))
+       #'(define name `((width . w) (((p-0 ...) . value) ...
+				     (default . value-n)))))
+      ((_ name (width w) ((p-0 ... => value) ...))
+       #'(define name `((width . w) (((p-0 ...) . value) ...))))
+      )))
+
+ (define get-field-width
+   (lambda (field)
+     (cond ((null? field) '())
+	   ((and (list? field) 
+		 (pair? (car field))
+		 (eq? 'width (caar field))
+		 (cdar field)))
+	   (else (get-field-width (cdr field)))))))
+
+
+					; (define-syntax define-field
+					;   (lambda (x)
+					;     (let ()
+					;       (syntax-case x (parent width bit-index)
+					;	 ((
