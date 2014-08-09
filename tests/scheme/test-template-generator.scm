@@ -1,15 +1,19 @@
 #!r6rs
-(import (rnrs base (6))
-        (rnrs io simple (6))
-	(assiah bootstrap template-generator))
+(import 
+ (rnrs base (6))
+ (rnrs io simple (6))
+ (srfi-64)
+ (assiah bootstrap template-generator))
 
-(write '(foo "bar" quux))
-(newline)
+					; (test-group "Tests of the temple-generator library for Assiah"
 
+(test-begin "basic default handling")
 (define-field-pattern foo-0 (width 3)
   ((default => 0)))
-(write foo-0)
-(newline)
+(test-eqv foo-0 '((width . 3) (default . 0)))
+(test-end "basic default handling")
+
+
 
 (define-field-pattern foo-1 (width 3)
   ((bar => 2)))
