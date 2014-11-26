@@ -7,7 +7,7 @@
    ("DS" => #x3E)
    ("ES" => #x26)
    ("FS" => #x64)
-   ("GS" => #x65))
+   ("GS" => #x65)))
 
 (define-pattern SEG-MODIFIER
   (("SEG" SEGMENT-PREFIX)))
@@ -23,7 +23,7 @@
     ((16) INT-16)
     ((32) INT-32)))
 
-; 8-bit general-purpose registers
+					; 8-bit general-purpose registers
 (define-field-pattern GPR-8 (width 3)
   (("AL" => #b000)
    ("CL" => #b001)
@@ -34,7 +34,7 @@
    ("DH" => #b110)
    ("BH" => #b111)))
 
-; 16-bit general-purpose registers
+					; 16-bit general-purpose registers
 (define-field-pattern GPR-16 (width 3)
   (("AX" => #b000)
    ("CX" => #b001)
@@ -45,7 +45,7 @@
    ("SI" => #b110)
    ("DI" => #b111)))
 
-; 32-bit general-purpose registers
+					; 32-bit general-purpose registers
 (define-field-pattern GPR-32 (width 3)  
   (("EAX" => #b000)
    ("ECX" => #b001)
@@ -113,11 +113,11 @@
 (define-option DISP (DISP-8 SYSTEM-DISP)) 
 
 (define-option R/M-OR-DISP ((exclude ("BP" "EBP") SYSTEM-R/M) 
-                            SYSTEM-INT))  
+			    SYSTEM-INT))  
 
 (define-pattern REF ("Ref" (OPT-SEG-MOD R/M-OR-DISP))                         ; (ADD EBX (REF EAX))
-(define-pattern REF-DISP-8 ("Ref" OPT-SEG-MOD SYSTEM-R/M DISP-8))            ; (ADD EBX (REF AL 2))
-(define-pattern REF-SYSTEM-DISP ("Ref" OPT-SEG-MOD SYSTEM-R/M SYSTEM-DISP))  ; (ADD EBX (REF EAX 512)) 
+  (define-pattern REF-DISP-8 ("Ref" OPT-SEG-MOD SYSTEM-R/M DISP-8))            ; (ADD EBX (REF AL 2))
+  (define-pattern REF-SYSTEM-DISP ("Ref" OPT-SEG-MOD SYSTEM-R/M SYSTEM-DISP)))  ; (ADD EBX (REF EAX 512)) 
 
 (define-field SCALE (width 2) (bit-index 6)
   ("1" => #b00)
@@ -126,15 +126,15 @@
   ("8" => #b11))
 
 (define-pattern SCALE-BARE ("Index" ("Scale" SYSTEM-INDEX SCALE))) 
-; (ADD EBX (INDEX (SCALE EDX 8)))
+					; (ADD EBX (INDEX (SCALE EDX 8)))
 (define-pattern SCALE-W/O-DISP ("Index" OPT-SEG-MOD SYSTEM-BASE ("Scale" SYSTEM-INDEX SCALE)))  
-; (ADD EBX (INDEX EAX (SCALE EDX 8)))
+					; (ADD EBX (INDEX EAX (SCALE EDX 8)))
 (define-pattern SCALE-8 ("Index" OPT-SEG-MOD BASE-8 ("Scale" SYSTEM-INDEX SCALE) DISP))
-; (ADD EBX (INDEX AX (SCALE EDX 8) 4))
+					; (ADD EBX (INDEX AX (SCALE EDX 8) 4))
 (define-pattern SYSTEM-SCALE ("Index" OPT-SEG-MOD SYSTEM-BASE ("Scale" SYSTEM-INDEX SCALE) DISP)) 
-; (ADD EBX (INDEX EAX (SCALE EDX 8) 4))
+					; (ADD EBX (INDEX EAX (SCALE EDX 8) 4))
 (define-pattern SCALE-W/O-BASE ("Index" ("Scale" SYSTEM-INDEX SCALE) DISP))  
-; (ADD EBX (INDEX (SCALE EDX 8) 4))
+					; (ADD EBX (INDEX (SCALE EDX 8) 4))
 
 (define-option REF/SCALE (REF SCALE-BARE SCALE-W/O-DISP SCALE-W/O-BASE))
 (define-option REF-8/SCALE-8 (REF-8 SCALE-8))
