@@ -23,3 +23,6 @@ avoid many of the issues found in other lexical macros systems, most notably
 variable capture. While the are more complex and slightly less powerful than
 classic Lisp style macros, the added safety of hygienic macros makes them
 ideal for working in the otherwise difficult environment of assembly code.
+
+The initial version of Assiah is being written in R6RS Scheme. Later revisions
+will be written in either Thelema, or Assiah itself.
