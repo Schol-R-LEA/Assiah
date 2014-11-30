@@ -2,9 +2,9 @@
 
 (library 
  (assiah bootstrap template-generator)
- (export define-state get-state set-state! 
-	 define-field-pattern define-field get-field-width get-field-bit-index 
-	 define-value-list get-value-list-width)
+ (export define-state set-state! 
+	 define-field-pattern define-field  
+	 define-value-list)
  (import
   (rnrs (6))
   (rnrs base (6))
