@@ -1,7 +1,7 @@
 (define-assembler-state Bits 32               ; default to 32-bit 
   (states 16 32))               
 
-(define-value SEGMENT-PREFIX (width 8)
+(define-value-list SEGMENT-PREFIX (width 8)
   (("CS" => #x2E) 
    ("SS" => #x36)
    ("DS" => #x3E)
@@ -115,9 +115,9 @@
 (define-option R/M-OR-DISP ((exclude ("BP" "EBP") SYSTEM-R/M) 
 			    SYSTEM-INT))  
 
-(define-pattern REF ("Ref" (OPT-SEG-MOD R/M-OR-DISP))                         ; (ADD EBX (REF EAX))
-  (define-pattern REF-DISP-8 ("Ref" OPT-SEG-MOD SYSTEM-R/M DISP-8))            ; (ADD EBX (REF AL 2))
-  (define-pattern REF-SYSTEM-DISP ("Ref" OPT-SEG-MOD SYSTEM-R/M SYSTEM-DISP)))  ; (ADD EBX (REF EAX 512)) 
+(define-pattern REF ("Ref" (OPT-SEG-MOD R/M-OR-DISP)))                         ; (ADD EBX (REF EAX))
+(define-pattern REF-DISP-8 ("Ref" OPT-SEG-MOD SYSTEM-R/M DISP-8))              ; (ADD EBX (REF AL 2))
+(define-pattern REF-SYSTEM-DISP ("Ref" OPT-SEG-MOD SYSTEM-R/M SYSTEM-DISP)))   ; (ADD EBX (REF EAX 512)) 
 
 (define-field SCALE (width 2) (bit-index 6)
   ("1" => #b00)

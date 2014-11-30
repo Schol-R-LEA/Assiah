@@ -1,14 +1,37 @@
 #!r6rs
 (import 
+ (rnrs (6))
  (rnrs base (6))
  (rnrs io simple (6))
  (rnrs hashtables (6))
  (srfi :64)
- (assiah bootstrap template-generator))
+ (assiah bootstrap template-generator)
+ (assiah bootstrap conditions))
 
 (define runner (test-runner-simple))
 
 (test-with-runner runner 
+		  (test-group "Tests of the state definition template macro and support functions"
+			      (test-group "Basic state definition"
+					  (define-state Bits (default 32) (states 16 32))
+					  (define bits-0 (cons 32 (list 16 32)))
+					  (test-equal Bits bits-0))
+			      (test-group "Basic state getter"
+					  (define-state Bits (default 32) (states 16 32))
+					  (test-equal (get-state Bits) 32))
+			      (test-group "Basic state redefinition"
+			      		  (define-state Bits (default 32) (states 16 32))
+			      		  (define bits-0 (cons 16 (list 16 32)))
+			      		  (set-state! Bits 16)
+			      		  (test-equal Bits bits-0))
+			      ;; (test-group "Invalid default - can't test because it is an expand-time error"
+			      ;; 		  (test-error &invalid-state-violation
+			      ;; 		   (define-state Bits (default 12) (states 16 32)))))
+			      (test-group "Invalid state change"
+			      		  (define-state Bits (default 16) (states 16 32))
+			      		  (test-error &invalid-state-violation
+			      			      (set-state! Bits 12))))
+
 		  (test-group "Tests of the define-field-pattern template macro"
 			      (test-group "basic default handling"
 					  (define-field-pattern foo-0 (width 3)
