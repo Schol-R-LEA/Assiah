@@ -1,7 +1,7 @@
 Assiah
 ======
 
-A Lisp-flavored Assembler for the x86, x86-64, ARM, and MIPS ISAs
+A Lisp-flavored Assembler for the x86, x86-64, ARM, and MIPS architectures
 
 Assiah is a part of the Thelema Project toolchain, and intended both as
 a standalone assembler and as a target for the Thelema compiler. It
