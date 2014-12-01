@@ -22,14 +22,10 @@
 
  (define-syntax define-state
    (lambda (statement)
-     (let* ((who 'define-state)
-	    (report-error
-	     (lambda (msg subform)
-	       (raise
-		(condition
-		 (make-who-condition who)
-		 (make-message-condition msg)
-		 (make-invalid-state-violation statement subform)))))) 		   
+     (let ((report-error 
+	    (add-error-reporting 'define-state 
+				 make-invalid-state-violation 
+				 (errors statement #'?default)))) 		   
        (syntax-case statement (default states)
 	 ((_ ?state-name (default ?default) (states ?state-0 ?state-n ...))
 	  (let ((default-value (syntax->datum #'?default))
@@ -38,22 +34,18 @@
 	    #'(define ?state-name (cons ?default (list ?state-0 ?state-n ...)))))))))
 
  (define-syntax set-state!
-   (syntax-rules ()
-     ((_ ?state ?new-value)
-      (let* ((who 'set-state!)
-	     (new-value (syntax->datum ?new-value))
-	     (state (syntax->datum ?state))
-	     (state-list (cdr state))
-	     (statement "failed (set-state!)")
-	     (report-error
-	      (lambda (msg subform)
-		(raise
-		 (condition
-		  (make-who-condition who)
-		  (make-message-condition msg)
-		  (make-invalid-state-violation statement subform))))))
-	(validate-state new-value state-list report-error)
-	(set-car! ?state ?new-value)))))
+   (lambda (statement)
+     (syntax-case statement ()
+       ((_ ?state ?new-value)
+	#`(let* ((new-value (syntax->datum ?new-value))
+		 (state (syntax->datum ?state))
+		 (state-list (cdr state))
+		 (report-error 
+		  (add-error-reporting 'set-state! 
+				       make-invalid-state-violation 
+				       (errors #,statement ?new-value))))
+	    (validate-state new-value state-list report-error)
+	    (set-car! ?state ?new-value))))))
 
 
  (define-syntax define-field-pattern
@@ -90,8 +82,4 @@
 	  ,(let ((table (make-hashtable string-hash string=?)))
 	     (hashtable-set! table ?key ?val)
 	     ...
-	     table))))))
-
-
-
- )
+	     table)))))))

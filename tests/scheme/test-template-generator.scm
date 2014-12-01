@@ -6,6 +6,7 @@
  (rnrs hashtables (6))
  (srfi :64)
  (assiah bootstrap template-generator)
+(assiah bootstrap template-operations)
  (assiah bootstrap conditions))
 
 (define runner (test-runner-simple))
