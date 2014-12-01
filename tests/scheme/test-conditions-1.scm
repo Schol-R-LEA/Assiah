@@ -11,4 +11,4 @@
 
 (define-state Bits (default 16) (states 16 32))
 
-(display (show-expansion '(set-state! Bits 12)))
+(set-state! Bits 12)

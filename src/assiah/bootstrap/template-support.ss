@@ -17,12 +17,12 @@
  (define-syntax add-error-reporting
    (syntax-rules (errors)
      ((_ ?who ?cond-ctor (errors ?error-state-0 ?error-state ...))
-      (lambda (?msg)
+      (lambda (msg)
 	(raise
 	 (condition
 	  (make-who-condition ?who)
-	  (make-message-condition ?msg)
-	  (?cond-ctor ?error-state-0 ?error-state ...))))))) 
+	  (make-message-condition msg)
+	  (?cond-ctor '?error-state-0 '?error-state ...))))))) 
 
 
  (define copy-parent-fields
