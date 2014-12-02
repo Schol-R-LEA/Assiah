@@ -25,7 +25,7 @@
 			      		  (define bits-0 (cons 16 (list 16 32)))
 			      		  (set-state! Bits 16)
 			      		  (test-equal Bits bits-0))
-			      ;; (test-group "Invalid default - can't test because it is an expand-time error"
+			      ;; (test-group "Invalid default - can't test because it is an expand-time condition"
 			      ;; 		  (test-error &invalid-state-violation
 			      ;; 		   (define-state Bits (default 12) (states 16 32)))))
 			      (test-group "Invalid state change"
