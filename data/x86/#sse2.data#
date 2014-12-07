@@ -1,45 +1,45 @@
 '(("ADDPD")
-  (#x66 #x0F NONE NONE (8 #x58 (NONE)) reg NO RING-3))
+  (#x66 #x0F NONE (8 #x58 (NONE)) reg NO RING-3))
   "Add Packed Double-FP Values")
 
 '(("ADDSD")
-  (#xF2 #x0F NONE NONE (8 #x58 (NONE)) reg NO RING-3))
+  (#xF2 #x0F NONE (8 #x58 (NONE)) reg NO RING-3))
   "Add Scalar Double-FP Values")
 
 '(("ANDNPD")
-  (#x66 #x0F NONE NONE (8 #x55 (NONE)) reg NO RING-3))
+  (#x66 #x0F NONE (8 #x55 (NONE)) reg NO RING-3))
   "Bitwise Logical AND NOT of Packed Double-FP Values")
 
 '(("ANDPD")
-  (#x66 #x0F NONE NONE (8 #x54 (NONE)) reg NO RING-3))
+  (#x66 #x0F NONE (8 #x54 (NONE)) reg NO RING-3))
   "Bitwise Logical AND of Packed Double-FP Values")
 
 '(("CLFLUSH")
-  ((#x66 #x0F NONE NONE (8 #xAE (NONE)) 7 NO RING-3))
+  ((#x66 #x0F NONE (8 #xAE (NONE)) 7 NO RING-3))
   "Flush Cache Line")
 
 '(("CMPSD")
-  ((#x66 #x0F NONE NONE (8 #xC2 (NONE)) reg NO RING-3))
+  ((#x66 #x0F NONE (8 #xC2 (NONE)) reg NO RING-3))
   "Compare Scalar Double-FP Values")
 
 '(("COMISD")
-  ((#x66 #x0F NONE NONE (8 #x2F (NONE)) reg NO RING-3))
+  ((#x66 #x0F NONE (8 #x2F (NONE)) reg NO RING-3))
   "Compare Scalar Ordered Double-FP Values and Set EFLAGS")
 
 '(("CVTDQ2PD")
-  ((#xF3 #x0F NONE NONE (8 #xE6 (NONE)) reg NO RING-3))
+  ((#xF3 #x0F NONE (8 #xE6 (NONE)) reg NO RING-3))
   "Convert Packed DW Integers to Double-FP Values")
 
 '(("CVTDQ2PS")
-  ((NONE #x0F NONE NONE (8 #x5B (NONE)) reg NO RING-3))
+  ((NONE #x0F NONE (8 #x5B (NONE)) reg NO RING-3))
   "Convert Packed DW Integers to Single-FP Values")
 
 '(("CVTPD2DQ")
-  ((#xF2 #x0F NONE NONE (8 #xE6 (NONE)) reg NO RING-3))
+  ((#xF2 #x0F NONE (8 #xE6 (NONE)) reg NO RING-3))
   "Convert Packed Double-FP Values to DW Integers")
 
 '(("CVTPD2PI")
-  ((#x66 #x0F NONE NONE (8 #x2D (NONE)) reg NO RING-3))
+  ((#x66 #x0F NONE (8 #x2D (NONE)) reg NO RING-3))
   "Convert Packed Double-FP Values to DW Integers")
 
 '(("CVTPD2PS")
@@ -67,33 +67,33 @@
   "Convert Scalar Double-FP Value to Scalar Single-FP Value")
 
 '(("CVTSI2SD")
-  ((#xF2 #x0F NONE (8 #x2A (NONE)) reg NO RING-3))
+  ((#xF2 #x0F NONE NONE (8 #x2A (NONE)) reg NO RING-3))
   "Convert DW Integer to Scalar Double-FP Value")
 
 '(("CVTSS2SD")
-  ((#xF3 #x0F NONE (8 #x5A (NONE)) reg NO RING-3))
+  ((#xF3 #x0F NONE NONE (8 #x5A (NONE)) reg NO RING-3))
   "Convert Scalar Single-FP Value to Scalar Double-FP Value")
 
 '(("CVTTPD2DQ")
-  ((#x66 #x0F NONE (8 #xE6 (NONE)) reg NO RING-3))
+  ((#x66 #x0F NONE NONE (8 #xE6 (NONE)) reg NO RING-3))
   "Convert with Trunc. Packed Double-FP Values to DW Integers")
 
 '(("CVTTPD2PI")
-  ((#x66 #x0F NONE (8 #x2C (NONE)) reg NO RING-3))
+  ((#x66 #x0F NONE NONE (8 #x2C (NONE)) reg NO RING-3))
   "Convert with Trunc. Packed Double-FP Values to DW Integers")
 
 '(("CVTTPS2DQ")
-  ((#xF3 #x0F NONE (8 #x5B (NONE)) reg NO RING-3))
+  ((#xF3 #x0F NONE NONE (8 #x5B (NONE)) reg NO RING-3))
   "Convert with Trunc. Packed Double-FP Values to DW Integers")
 
 '(("CVTTSD2SI")
-  ((#xF2 #x0F NONE (8 #x2C (NONE)) reg NO RING-3))
+  ((#xF2 #x0F NONE NONE (8 #x2C (NONE)) reg NO RING-3))
   "Convert with Trunc. Packed Double-FP Values to DW Integers")
 
 '(("DIVPD") 
-  ((#x66 #x0F NONE (8 #x5E (NONE)) reg NO RING-3))
+  ((#x66 #x0F NONE NONE (8 #x5E (NONE)) reg NO RING-3))
   "Divide Packed Double-FP Values")
 
 '(("DIVSD") 
-  ((#xF2 #x0F NONE (8 #x5E (NONE)) reg NO RING-3))
+  ((#xF2 #x0F NONE NONE (8 #x5E (NONE)) reg NO RING-3))
   "Divide Scalar Double-FP Values")

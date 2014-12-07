@@ -68,15 +68,14 @@
  
  (define-record-type (x86-opcode-format make-x86-opcode-format x86-opcode-format?)
    (parent opcode-format)
-   (fields mandatory-prefix alt-offset meta-offset secondary-opcode r/m lockable restricted)
+   (fields mandatory-prefix f0-prefix secondary-opcode r/m lockable restricted)
    (protocol 
     (lambda (ctor)
       (lambda 
-          (mandatory-prefix alt-offset meta-offset secondary-opcode opcode sub-fields r/m lockable restricted)
+          (mandatory-prefix f0-prefix secondary-opcode opcode sub-fields r/m lockable restricted)
         ((ctor opcode sub-fields)
          mandatory-prefix 
-         alt-offset 
-         meta-offset 
+         f0-prefix 
          secondary-opcode 
          r/m 
          lockable 

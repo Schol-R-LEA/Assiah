@@ -1,3 +1,3 @@
 '(("CMPXCHG8B" "Compare-And-Exchange-Bytes")
-  ((NONE #x0F NONE NONE (4 #xB0 (W)) reg ALLOWED RING-3))
+  ((NONE #x0F NONE (4 #xB0 (W)) reg ALLOWED RING-3))
   "Compare and Exchange Bytes")

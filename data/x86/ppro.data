@@ -1,103 +1,103 @@
 '(("CMOVB" "CMOVNAE" "CMOVC") 
-  ((NONE #x0F NONE NONE (5 #x40 (B)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (B)) reg NO RING-3))
   "Conditional Move - below/not above or equal/carry (CF=1)")
 
 '(("CMOVBE" "CMOVNA") 
-  ((NONE #x0F NONE NONE (5 #x40 (NA)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (NA)) reg NO RING-3))
   "Conditional Move - below or equal/not above (CF=1 AND ZF=1)")
 
 '(("CMOVL" "CMOVNGE")
-  ((NONE #x0F NONE NONE (5 #x40 (LT)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (LT)) reg NO RING-3))
   "Conditional Move - less/not greater or equal (SF!=OF)")
 
 '(("CMOVLE" "CMOVNG")
-  ((NONE #x0F NONE NONE (5 #x40 (LT)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (LT)) reg NO RING-3))
   "Conditional Move - less or equal/not greater ((ZF=1) OR (SF!=OF))")
 
 '(("CMOVNB" "CMOVAE" "CMOVNC") 
-  ((NONE #x0F NONE NONE (5 #x40 (AE)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (AE)) reg NO RING-3))
   "Conditional Move - not below/above or equal/not carry (CF=0)")
 
 '(("CMOVNBE" "CMOVA")
-  ((NONE #x0F NONE NONE (5 #x40 (A)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (A)) reg NO RING-3))
   "Conditional Move - not below or equal/above (CF=0 AND ZF=0)")
 
 '(("CMOVNL" "CMOVGE")
-  ((NONE #x0F NONE NONE (5 #x40 (GE)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (GE)) reg NO RING-3))
   "Conditional Move - not less/greater or equal (SF=OF)")
 
 '(("CMOVNLE" "CMOVG")
-  ((NONE #x0F NONE NONE (5 #x40 (LE)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (LE)) reg NO RING-3))
   "Conditional Move - not less nor equal/greater ((ZF=0) AND (SF=OF))")
 
 '(("CMOVNO")
-  ((NONE #x0F NONE NONE (5 #x40 (NO)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (NO)) reg NO RING-3))
   "Conditional Move - not overflow (OF=0)")
 
 '(("CMOVNP" "CMOVPO")
-  ((NONE #x0F NONE NONE (5 #x40 (NP)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (NP)) reg NO RING-3))
   "Conditional Move - not parity/parity odd")
 
 '(("CMOVNS")
-  ((NONE #x0F NONE NONE (5 #x40 (NS)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (NS)) reg NO RING-3))
   "Conditional Move - not sign (SF=0)")
 
 '(("CMOVNZ" "CMOVNE") 
-  ((NONE #x0F NONE NONE (5 #x40 (NE)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (NE)) reg NO RING-3))
   "Conditional Move - not zero/not equal (ZF=1)")
 
 '(("CMOVO")
-  ((NONE #x0F NONE NONE (5 #x40 (OF)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (OF)) reg NO RING-3))
   "Conditional Move - overflow (OF=1)")
 
 '(("CMOVP" "CMOVPE") 
-  ((NONE #x0F NONE NONE (5 #x40 (P)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (P)) reg NO RING-3))
   "Conditional Move - parity/parity even (PF=1)")
 
 '(("CMOVS")
-  ((NONE #x0F NONE NONE (5 #x40 (SN)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (SN)) reg NO RING-3))
   "Conditional Move - sign (SF=1)")
 
 '(("CMOVZ" "CMOVE")
-  ((NONE #x0F NONE NONE (5 #x40 (EQ)) reg NO RING-3))
+  ((NONE #x0F NONE (5 #x40 (EQ)) reg NO RING-3))
   "Conditional Move - zero/equal (ZF=0)")
 
 '(("FMOVB")
-  ((NONE NONE NONE NONE (8 #xDA (NONE)) 0 NO RING-3))
+  ((NONE NONE NONE (8 #xDA (NONE)) 0 NO RING-3))
   "FP Conditional Move - below (CF=1)")
 
 '(("FMOVBE")
-  ((NONE NONE NONE NONE (8 #xDA (NONE)) 2 NO RING-3))
+  ((NONE NONE NONE (8 #xDA (NONE)) 2 NO RING-3))
   "FP Conditional Move - below or equal (CF=1 or ZF=1)")
 
 '(("FMOVE")
-  ((NONE NONE NONE NONE (8 #xDA (NONE)) 1 NO RING-3))
+  ((NONE NONE NONE (8 #xDA (NONE)) 1 NO RING-3))
   "FP Conditional Move - equal (ZF=1)")
 
 '(("FMOVNB")
-  ((NONE NONE NONE NONE (8 #xDB (NONE)) 0 NO RING-3))
+  ((NONE NONE NONE (8 #xDB (NONE)) 0 NO RING-3))
   "FP Conditional Move - not below (CF=0)")
 
 '(("FMOVNBE")
-  ((NONE NONE NONE NONE (8 #xDB (NONE)) 2 NO RING-3))
+  ((NONE NONE NONE (8 #xDB (NONE)) 2 NO RING-3))
   "FP Conditional Move - below or equal (CF=0 and ZF=0)")
 
 '(("FMOVNE")
-  ((NONE NONE NONE NONE (8 #xDB (NONE)) 1 NO RING-3))
+  ((NONE NONE NONE (8 #xDB (NONE)) 1 NO RING-3))
   "FP Conditional Move - not equal (ZF=0)")
 
 '(("FMOVNU")
-  ((NONE NONE NONE NONE (8 #xDB (NONE)) 3 NO RING-3))
+  ((NONE NONE NONE (8 #xDB (NONE)) 3 NO RING-3))
   "FP Conditional Move - not unordered (PF=0)")
 
 '(("FMOVNE")
-  ((NONE NONE NONE NONE (8 #xDA (NONE)) 3 NO RING-3))
+  ((NONE NONE NONE (8 #xDA (NONE)) 3 NO RING-3))
   "FP Conditional Move - unordered (PF=1)")
 
 '(("FCOMI")
-  ((NONE NONE NONE NONE (6 #xD8 (NONE)) 6 NO RING-3))  
+  ((NONE NONE NONE (6 #xD8 (NONE)) 6 NO RING-3))  
   "Compare Floating Point Values and Set EFLAGS")
 
 '(("FCOMIP")
-  ((NONE NONE NONE NONE (6 #xDF (NONE)) 6 NO RING-3))  
+  ((NONE NONE NONE (6 #xDF (NONE)) 6 NO RING-3))  
   "Compare Floating Point Values and Set EFLAGS and Pop")
