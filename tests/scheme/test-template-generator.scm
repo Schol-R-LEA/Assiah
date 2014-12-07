@@ -62,7 +62,7 @@
 				(let ((t (list '(width . 8) temp-table)))
 				  (test-eq temp-table (cadr t)))))
 
-		  (test-group "Tests of the define-value template macro"
+		  (test-group "Tests of the define-value-list template macro"
 		  	      (test-group "single value handling" 
 					; the syntax to be tested
 		  			  (define-value-list SEGMENT-PREFIX (width 8)
@@ -79,4 +79,6 @@
 					    (hashtable-set! temp-table "CS" #x2E)  			    
                                             (test-equal 
 		  			     (hashtable-ref t "CS" #t)
-		  			     (hashtable-ref temp-table "CS" #t))))))
+		  			     (hashtable-ref temp-table "CS" #t))
+					    (test-equal (get-value SEGMENT-PREFIX "CS")
+							(hashtable-ref temp-table "CS" #t))))))

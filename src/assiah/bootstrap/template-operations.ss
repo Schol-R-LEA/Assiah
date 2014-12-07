@@ -4,7 +4,7 @@
  (assiah bootstrap template-operations)
  (export get-state 
 	 get-field-width get-field-bit-index 
-	 get-value-list-width)
+	 get-value-list-width get-value)
  (import
   (rnrs (6))
   (rnrs base (6))
@@ -16,8 +16,9 @@
   (rnrs records syntactic (6))
   (assiah bootstrap conditions))
  
- (define (get-state state)
-   (car state))
+ (define get-state 
+   (lambda (state)
+     (car state)))
 
  (define get-field-width
    (lambda (field)
@@ -27,5 +28,10 @@
    (lambda (field)
      (cdadr field)))
 
- (define (get-value-list-width vallist)
-   (caadar vallist)))
+ (define get-value-list-width 
+   (lambda (vallist)
+     (caadar vallist)))
+
+ (define get-value 
+   (lambda (vallist key)
+     (hashtable-ref (cadr vallist) key '()))))

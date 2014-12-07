@@ -21,11 +21,11 @@
 
 (define-instruction-state System-Word 
   (default Bits)
-  (states INT-16 INT-32)) 
+  (states 16 32)) 
 
 (define-instruction-state SYSTEM-INT 
   (default Bits)
-  (states  INT-16 INT-32))
+  (states  16 32))
 
 					; 8-bit general-purpose registers
 (define-field-pattern GPR-8 (width 3)
