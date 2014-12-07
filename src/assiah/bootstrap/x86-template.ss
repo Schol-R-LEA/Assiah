@@ -1,5 +1,8 @@
-(define-assembler-state Bits 32               ; default to 32-bit 
+(define-assembler-state Bits (default 32)               ; default to 32-bit 
   (states 16 32))               
+
+(define-assembler-state Section (default "Code")
+  (states "Code" "Data" "Read-Only-Data" "Unitialized-Data")) 
 
 (define-value-list SEGMENT-PREFIX (width 8)
   (("CS" => #x2E) 
@@ -12,16 +15,17 @@
 (define-pattern SEG-MODIFIER
   (("SEG" SEGMENT-PREFIX)))
 
-(define-option OPT-SEG-MOD (SEG-MODIFIER NONE))
+(define-instruction-state Using-Seg-Modifier 
+  (default (get-value SEGMENT-PREFIX "DS"))
+  (states "CS" "SS" "DS" "ES" "FS" "GS"))
 
-(define-instruction-state Using-Seg-Modifier NONE)
+(define-instruction-state System-Word 
+  (default Bits)
+  (states INT-16 INT-32)) 
 
-(define-instruction-state System-Word Bits)   ; default to the current BITS state
-
-(define-instruction-state SYSTEM-INT
-  (case (System-Word)
-    ((16) INT-16)
-    ((32) INT-32)))
+(define-instruction-state SYSTEM-INT 
+  (default Bits)
+  (states  INT-16 INT-32))
 
 					; 8-bit general-purpose registers
 (define-field-pattern GPR-8 (width 3)
@@ -73,31 +77,28 @@
 (define-field BASE-16 (parent GPR-16) (bit-index 0))
 (define-field BASE-32 (parent GPR-32) (bit-index 0))
 
-(define-instruction-state SYSTEM-REG
-  (case (System-Word)
-    ((16) REG-16)
-    ((32) REG-32)))
+(define-instruction-state SYSTEM-REG 
+  (default REG-32)
+  (states REG-16 REG-32))
 
 (define-option REG (REG-8 SYSTEM-REG))
 
-(define-instruction-state SYSTEM-R/M
-  (case (System-Word)
-    ((16) R/M-16)
-    ((32) R/M-32)))
+(define-instruction-state SYSTEM-R/M 
+  (default R/M-32)
+  (states REG-16 REG-32))
+
 
 (define-option R/M (R/M-8 SYSTEM-R/M))
 
 (define-instruction-state SYSTEM-INDEX
-  (case (System-Word)
-    ((16) INDEX-16)
-    ((32) INDEX-32)))
+  (default INDEX-32)
+  (states INDEX-16 INDEX-32))
 
 (define-option INDEX (INDEX-8 SYSTEM-INDEX))
 
 (define-instruction-state SYSTEM-BASE
-  (case (System-Word)
-    ((16) BASE-16)
-    ((32) BASE-32)))
+  (default BASE-32)
+  (states  BASE-16 BASE-32))
 
 (define-option BASE (BASE-8 SYSTEM-BASE))
 
@@ -106,9 +107,8 @@
 (define-option DISP-32 (INT-32 EQUATE-32))
 
 (define-instruction-state SYSTEM-DISP
-  (case (System-Word)
-    ((16) DISP-16)
-    ((32) DISP-32)))
+  (default DISP-32)
+  (states DISP-16 DISP-32))
 
 (define-option DISP (DISP-8 SYSTEM-DISP)) 
 
