@@ -3,7 +3,7 @@
 (library 
  (assiah bootstrap template-generator)
  (export define-state set-state! 
-	 define-field-pattern define-field  
+	 define-field-table define-field  
 	 define-value-list)
  (import
   (rnrs (6))
@@ -48,7 +48,7 @@
 	    (set-car! ?state ?new-value))))))
 
 
- (define-syntax define-field-pattern
+ (define-syntax define-field-table
    (syntax-rules (width default =>)
      ((_ ?name (width ?w) ((?p-0 ... => ?value) ... (default => ?value-n)))
       (define ?name '((width . ?w) (((?p-0 ...) . ?value) ...

@@ -2,7 +2,7 @@
 
 (library 
  (assiah bootstrap template-operations)
- (export get-state 
+ (export get-state get-state-list
 	 get-field-width get-field-bit-index 
 	 get-value-list-width get-value)
  (import
@@ -19,6 +19,10 @@
  (define get-state 
    (lambda (state)
      (car state)))
+
+(define get-state-list
+  (lambda (state)
+    (cdr state)))
 
  (define get-field-width
    (lambda (field)
