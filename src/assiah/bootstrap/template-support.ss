@@ -14,17 +14,6 @@
   (rnrs records syntactic (6))
   (assiah bootstrap conditions))
 
- (define-syntax add-error-reporting
-   (syntax-rules (errors)
-     ((_ ?who ?cond-ctor (errors ?error-state-0 ?error-state ...))
-      (lambda (msg)
-	(raise
-	 (condition
-	  (make-who-condition ?who)
-	  (make-message-condition msg)
-	  (?cond-ctor '?error-state-0 '?error-state ...))))))) 
-
-
  (define copy-parent-fields
    (lambda (parent)
      (caddr parent)))

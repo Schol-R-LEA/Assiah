@@ -33,7 +33,7 @@
       (actions 
        (validate-label ?LABEL-NAME)))
 
-    (define-value-list SEGMENT-PREFIX (width 8)
+    (define-field-table SEGMENT-PREFIX
       (("CS" => #x2E) 
        ("SS" => #x36)
        ("DS" => #x3E)
@@ -57,7 +57,7 @@
       (states (get-state-list Bits)))
 
 					; 8-bit general-purpose registers
-    (define-field-table GPR-8 (width 3)
+    (define-field-table GPR-8
       (("AL" => #b000)
        ("CL" => #b001)
        ("DL" => #b010)
@@ -68,7 +68,7 @@
        ("BH" => #b111)))
 
 					; 16-bit general-purpose registers
-    (define-field-table GPR-16 (width 3)
+    (define-field-table GPR-16
       (("AX" => #b000)
        ("CX" => #b001)
        ("DX" => #b010)
@@ -79,7 +79,7 @@
        ("DI" => #b111)))
 
 					; 32-bit general-purpose registers
-    (define-field-table GPR-32 (width 3)  
+    (define-field-table GPR-32
       (("EAX" => #b000)
        ("ECX" => #b001)
        ("EDX" => #b010)
@@ -90,27 +90,27 @@
        ("EDI" => #b111)))
 
 
-    (define-field REG-8 (parent GPR-8) (bit-index 3))
-    (define-field REG-16 (parent GPR-16) (bit-index 3))
-    (define-field REG-32 (parent GPR-32) (bit-index 3))
+    (define-field REG-8  (width 3) (bit-index 3) (parent GPR-8))
+    (define-field REG-16 (width 3) (bit-index 3) (parent GPR-16))
+    (define-field REG-32 (width 3) (bit-index 3) (parent GPR-32))
 
-    (define-field R/M-8 (parent GPR-8) (bit-index 0))
-    (define-field R/M-16 (parent GPR-16) (bit-index 0))
-    (define-field R/M-32 (parent GPR-32) (bit-index 0))
+    (define-field R/M-8  (width 3) (bit-index 0) (parent GPR-8))
+    (define-field R/M-16 (width 3) (bit-index 0) (parent GPR-16))
+    (define-field R/M-32 (width 3) (bit-index 0) (parent GPR-32))
 
-    (define-field INDEX-8 (parent (exclude ("AH") GPR-8)) (bit-index 3))
-    (define-field INDEX-16 (parent (exclude ("SP") GPR-16)) (bit-index 3))
-    (define-field INDEX-32 (parent (exclude ("ESP") GPR-32)) (bit-index 3))
+    (define-field INDEX-8  (width 3) (bit-index 3) (parent (exclude ("AH") GPR-8)))
+    (define-field INDEX-16 (width 3) (bit-index 3) (parent (exclude ("SP") GPR-16)))
+    (define-field INDEX-32 (width 3) (bit-index 3) (parent (exclude ("ESP") GPR-32)))
 
-    (define-field BASE-8 (parent GPR-8) (bit-index 0))
-    (define-field BASE-16 (parent GPR-16) (bit-index 0))
-    (define-field BASE-32 (parent GPR-32) (bit-index 0))
+    (define-field BASE-8  (width 3) (bit-index 0) (parent GPR-8))
+    (define-field BASE-16 (width 3) (bit-index 0) (parent GPR-16))
+    (define-field BASE-32 (width 3) (bit-index 0) (parent GPR-32))
 
     (define-state SYSTEM-REG 
       (default REG-32)
       (states REG-16 REG-32))
 
-    (define-option REG (append (REG-8) (get-state-list SYSTEM-REG))
+    (define-option REG (append (REG-8) (get-state-list SYSTEM-REG)))
 
     (define-state SYSTEM-R/M 
       (default R/M-32)
@@ -147,46 +147,48 @@
 
     (define-pattern REF (("Ref" (OPT-SEG-MOD R/M-OR-DISP))))                         ; (ADD EBX (REF EAX))
     (define-pattern REF-DISP-8 (("Ref" OPT-SEG-MOD SYSTEM-R/M DISP-8)))              ; (ADD EBX (REF AL 2))
-    (define-pattern REF-SYSTEM-DISP (("Ref" OPT-SEG-MOD SYSTEM-R/M SYSTEM-DISP))))   ; (ADD EBX (REF EAX 512)) 
+    (define-pattern REF-SYSTEM-DISP (("Ref" OPT-SEG-MOD SYSTEM-R/M SYSTEM-DISP)))    ; (ADD EBX (REF EAX 512)) 
 
-  (define-field SCALE (width 2) (bit-index 6)
-    ("1" => #b00)
-    ("2" => #b01)
-    ("4" => #b10)
-    ("8" => #b11))
+    (define-field-table Scale-Values
+      ("1" => #b00)
+      ("2" => #b01)
+      ("4" => #b10)
+      ("8" => #b11))
+    
+    (define-field SCALE (width 2) (bit-index 6) (parent scale-values))
 
-  (define-pattern SCALE-BARE (("Scale" SYSTEM-INDEX SCALE)))
+    (define-pattern SCALE-BARE (("Scale" SYSTEM-INDEX SCALE)))
 					; (ADD EBX (INDEX (SCALE EDX 8)))
-  (define-pattern SCALE-W/O-DISP (("Index" OPT-SEG-MOD SYSTEM-BASE ("Scale" SYSTEM-INDEX SCALE))))  
+    (define-pattern SCALE-W/O-DISP (("Index" OPT-SEG-MOD SYSTEM-BASE ("Scale" SYSTEM-INDEX SCALE))))  
 					; (ADD EBX (INDEX EAX (SCALE EDX 8)))
-  (define-pattern SCALE-8 (("Index" OPT-SEG-MOD BASE-8 ("Scale" SYSTEM-INDEX SCALE) DISP)))
+    (define-pattern SCALE-8 (("Index" OPT-SEG-MOD BASE-8 ("Scale" SYSTEM-INDEX SCALE) DISP)))
 					; (ADD EBX (INDEX AH (SCALE EDX 8) 4))
-  (define-pattern SYSTEM-SCALE (("Index" OPT-SEG-MOD SYSTEM-BASE ("Scale" SYSTEM-INDEX SCALE) DISP))) 
+    (define-pattern SYSTEM-SCALE (("Index" OPT-SEG-MOD SYSTEM-BASE ("Scale" SYSTEM-INDEX SCALE) DISP))) 
 					; (ADD EBX (INDEX EAX (SCALE EDX 8) 4))
-  (define-pattern SCALE-W/O-BASE (("Scale" SYSTEM-INDEX SCALE) DISP))
+    (define-pattern SCALE-W/O-BASE (("Scale" SYSTEM-INDEX SCALE) DISP))
 					; (ADD EBX (INDEX (SCALE EDX 8) 4))
 
-  (define-option REF/SCALE (REF SCALE-BARE SCALE-W/O-DISP SCALE-W/O-BASE))
-  (define-option REF-8/SCALE-8 (REF-DISP-8 SCALE-8))
-  (define-option REF-SYS/SCALE-SYS (REF-SYSTEM-DISP SYSTEM-SCALE))
+    (define-option REF/SCALE (REF SCALE-BARE SCALE-W/O-DISP SCALE-W/O-BASE))
+    (define-option REF-8/SCALE-8 (REF-DISP-8 SCALE-8))
+    (define-option REF-SYS/SCALE-SYS (REF-SYSTEM-DISP SYSTEM-SCALE))
 
-  (define-field MOD (width 2) (index 6)                      
-    ((REF/SCALE) => #b00)       
-    ((REF-8/SCALE-8) => #b01)      
-    ((REF-SYS/SCALE-SYS) => #b10) 
-    (R/M => #b11)) ; (ADD EBX EAX)
+    (define-field MOD (width 2) (bit-index 6)                      
+      ((REF/SCALE) => #b00)       
+      ((REF-8/SCALE-8) => #b01)      
+      ((REF-SYS/SCALE-SYS) => #b10) 
+      (R/M => #b11)) ; (ADD EBX EAX)
 
-  (define-value MOD-REG-R/M 
-    (width 8) 
-    (fields MOD REG R/M))
+    (define-value MOD-REG-R/M 
+      (width 8) 
+      (fields MOD REG R/M))
 
-  (define-value SIB 
-    (width 8) 
-    (fields SCALE INDEX BASE))
+    (define-value SIB 
+      (width 8) 
+      (fields SCALE INDEX BASE))
 
- (define-option PREFIX (NONE "LOCK" "REP" "REPE" "REPNE" "REPZ" "REPNZ" "BRT" "BRNT"))
+    (define-option PREFIX (NONE "LOCK" "REP" "REPE" "REPNE" "REPZ" "REPNZ" "BRT" "BRNT"))
 
- (define-option ARGUMENT (NONE REG REF/SCALE REF-8/SCALE-8 REF-SYS/SCALE-SYS))
+    (define-option ARGUMENT (NONE REG REF/SCALE REF-8/SCALE-8 REF-SYS/SCALE-SYS))
 
- (define-pattern INSTRUCTION
-   ((PREFIX PREFIX PREFIX PREFIX ?MNEMONIC ARGUMENT ARGUMENT)))))
+    (define-pattern INSTRUCTION
+      ((PREFIX PREFIX PREFIX PREFIX ?MNEMONIC ARGUMENT ARGUMENT)))))

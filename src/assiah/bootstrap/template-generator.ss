@@ -3,8 +3,7 @@
 (library 
  (assiah bootstrap template-generator)
  (export define-state set-state! 
-	 define-field-table define-field  
-	 define-value-list)
+	 define-field-table define-field)
  (import
   (rnrs (6))
   (rnrs base (6))
@@ -13,12 +12,18 @@
   (rnrs syntax-case (6))
   (rnrs mutable-pairs (6))
   (for (rnrs mutable-pairs (6)) expand)
+  (rnrs records syntactic (6))
+  (for (rnrs records syntactic (6)) expand)
   (assiah bootstrap conditions)
   (for (assiah bootstrap conditions) expand)
+  (assiah bootstrap template-types)
+  (for (assiah bootstrap template-types) expand)
   (assiah bootstrap template-operations)
   (for (assiah bootstrap template-operations) expand)
   (assiah bootstrap template-support)
   (for (assiah bootstrap template-support) expand))
+
+
 
  (define-syntax define-state
    (lambda (statement)
@@ -48,38 +53,19 @@
 	    (set-car! ?state ?new-value))))))
 
 
+
  (define-syntax define-field-table
-   (syntax-rules (width default =>)
-     ((_ ?name (width ?w) ((?p-0 ... => ?value) ... (default => ?value-n)))
-      (define ?name '((width . ?w) (((?p-0 ...) . ?value) ...
-				  (default . ?value-n)))))
-     ((_ ?name (width ?w) ((?p-0 ... => ?value) ...))
-      (define ?name '((width . ?w) (((?p-0 ...) . ?value) ...))))
-     ))
- 
- (define-syntax define-field
-   (syntax-rules (parent width bit-index =>)
-     ((_ ?name (width ?w) (bit-index ?bi) ((?p-0 ... => ?value-0) ... (default => ?value-n)))
-      (define ?name '((width . ?w) 
-		      (bit-index . ?bi) 
-		      (((?p-0 ...) . ?value-0) ...
-		       (default . ?value-n)))))
-     ((_ ?name (width ?w) (bit-index ?bi) ((?p-0 ... => ?value-0) ...))
-      (define name '((width . ?w) 
-		     (bit-index . ?bi) 
-		     (((?p-0 ...) . ?value-0) ...))))
-     ((_ ?name (parent ?super) (bit-index ?bi))
-      (define ?name '((width . #,(get-field-width ?super)) 
-		      (bit-index . ?bi) 
-		      (#,(copy-parent-fields ?super)))))))
+   (syntax-rules (default =>)
+     ((_ ?name ((?p-0 ... => ?value) ... (default => ?value-n)))
+      (define ?name (make-field-table ((?p-0 ...) . ?value) ... (default . ?value-n))))
+     ((_ ?name ((?p-0 ... => ?value) ...))
+      (define ?name (make-field-table ((?p-0 ...) . ?value) ...)))))
 
 
- (define-syntax define-value-list
-   (syntax-rules (width =>)
-     ((_ ?the-name (width . ?the-width) ((?key => ?val) ...))
-      (define ?the-name
-	`((width ?the-width)
-	  ,(let ((table (make-hashtable string-hash string=?)))
-	     (hashtable-set! table ?key ?val)
-	     ...
-	     table)))))))
+
+ (define-syntax define-bit-field
+   (syntax-rules (width bit-index parent =>)
+     ((_ ?name (width ?w) (bit-index ?bi) (parent ?super))
+      (define ?name (make-bit-field ?w ?bi ?super))))))
+
+

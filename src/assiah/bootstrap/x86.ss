@@ -26,7 +26,7 @@
   (rnrs records syntactic (6))
   (rnrs exceptions (6))
   (rnrs conditions (6))
-  (bootstrap opcodes))
+  (assiah bootstrap opcodes))
  
  (define NONE '())
  
@@ -58,8 +58,7 @@
    (protocol 
     (lambda (ctor)
       (lambda (size bit-index bit-field)
-        ((ctor size bit-index)
-         bit-field)))))
+        ((ctor size bit-index bit-field)))))
  
  (define x86-opcode-sub-field-set (make-hashtable symbol-hash eq?))
  
@@ -73,13 +72,15 @@
     (lambda (ctor)
       (lambda 
           (mandatory-prefix f0-prefix secondary-opcode opcode sub-fields r/m lockable restricted)
-        ((ctor opcode sub-fields)
-         mandatory-prefix 
-         f0-prefix 
-         secondary-opcode 
-         r/m 
-         lockable 
-         restricted)))))
+        ((ctor 
+	  opcode 
+	  sub-fields
+	  mandatory-prefix 
+	  f0-prefix 
+	  secondary-opcode 
+	  r/m 
+	  lockable 
+	  restricted))))))
  
  (define i8086-mnemonics (make-hashtable symbol-hash eq?))
  (define i80186-mnemonics (make-hashtable symbol-hash eq?))
