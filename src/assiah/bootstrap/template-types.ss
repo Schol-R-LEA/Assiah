@@ -93,14 +93,19 @@
 	             (sum 0))
 	    (cond
 	      ((> sum width)
-	       (report-error "Sum of bith widths exceeds total size."))
+	       (report-error "Sum of bit widths exceeds total size."))
 	      ((null? remaining-values) 
 	        (ctor bit-width sub-field-list-values))
               (else 
                 (let* ((field (car remaining-values))
-                       (w (bit-field-width field))) 
-                  (if (bit-field? field)
-		      (loop (cdr remaining-values) (+ sum w))
-		      (report-error
+                       (w (bit-field-width field))
+                       (s (bit-field-index field)))
+                       
+                  (cond
+                    ((> s (- width 1))
+                     (report-error "Bit Index out of bounds."))
+                    ((bit-field? field)
+		     (loop (cdr remaining-values) (+ sum w)))
+		     (report-error
 		       "The list of bit fields contained an element that was not a bit-field"))))))))))))
 
