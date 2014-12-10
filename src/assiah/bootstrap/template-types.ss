@@ -100,7 +100,6 @@
                 (let* ((field (car remaining-values))
                        (w (bit-field-width field))
                        (s (bit-field-index field)))
-                       
                   (cond
                     ((> s (- width 1))
                      (report-error "Bit Index out of bounds."))
