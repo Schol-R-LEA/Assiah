@@ -53,14 +53,12 @@
 	    (set-car! ?state ?new-value))))))
 
 
-
  (define-syntax define-field-table
    (syntax-rules (default =>)
-     ((_ ?name (default => ?default-key) ((?p-0 => ?value) ... ))
-      (define ?name (make-field-table ?default-key '((?p-0 . ?value) ... ))))
+     ((_ ?name (default ?default-key) ((?p-0 => ?value) ... ))
+      (define ?name (make-field-table '?default-key '((?p-0 . ?value) ... ))))
      ((_ ?name ((?p-0 => ?value) ...))
       (define ?name (make-field-table '() '((?p-0 . ?value) ...))))))
-
 
 
  (define-syntax define-bit-field

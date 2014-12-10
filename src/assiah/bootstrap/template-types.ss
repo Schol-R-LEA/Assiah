@@ -2,8 +2,9 @@
 
 (library 
  (assiah bootstrap template-generator)
- (export field-table make-field-table field-table? field-table-table
-	 bit-field make-bit-field bit-field? bit-field-width  bit-field-index bit-field-table)
+ (export field-table make-field-table field-table? field-table-table field-table-default-key
+	 bit-field make-bit-field bit-field? bit-field-width bit-field-index bit-field-table
+	 validate-field-values in-bit-width? binary-expansion)
  (import
   (rnrs (6))
   (rnrs base (6))
@@ -44,42 +45,43 @@
    (protocol 
     (lambda (ctor)
       (lambda (bit-width bit-index table-list) 
-
 	(let ((invalid-values (validate-field-values table-list bit-width))
 	      (report-bad-table (add-error-reporting 'make-bit-field
 						     make-invalid-field-table-violation))
 	      (report-bad-entry (add-error-reporting 'make-bit-field
 						     make-invalid-bit-width-violation)))
 	  (cond ((not (field-table? table-list)) (report-bad-table "bit fields require a table of possible values"))
-		((null? invalid-values)
-		 (ctor bit-width bit-index table-list))
+		((null? invalid-values) (ctor bit-width bit-index table-list))
 		(else (report-bad-entry "bit fields require integer values in the size of the bit width"))))))))
  
 
-
  (define validate-field-values
    (lambda (table width)
-     (let ((table-keys (hashtable-keys table)))
-       (let test-key-values ((key-list table-keys))
-	 (if (null? key-list) 
-	     '()
-	     (let ((value (hashtable-ref (car key-list)))
-		   (rest-keys (cdr key-list)))
-	       (if (not (in-bit-width value width))
-		   (cons value (test-key-values rest-keys))
-		   (test-key-values rest-keys))))))))
+     (let* ((ht (field-table-table table))
+	    (table-keys (hashtable-keys ht)))
+       (let test-key-values ((key-list (vector->list table-keys)))
+	 (cond ((null? key-list) '())
+	       ((list? key-list)
+		(let ((value (hashtable-ref ht (car key-list) '()))
+		      (rest-keys (cdr key-list)))
+		  (if (not (in-bit-width? value width))
+		      (append (list value) (test-key-values rest-keys))
+		      (test-key-values rest-keys))))
+	       (else 
+		(let ((value (hashtable-ref ht key-list '())))
+		  (if (not (in-bit-width? value width))
+		      value
+		      '()))))))))
 
-
- (define in-bit-width
+ (define in-bit-width?
    (lambda (value width)
      (and (integer? value)
-	  (>= value 0)
+	  (positive? value)
 	  (<= value (binary-expansion width)))))
 
  (define binary-expansion 
    (lambda (width)
      (- (expt 2 width) 1)))
-
 
  (define-record-type (composite-field make-composite-field composite-field?)
    (fields width sub-field-list)
