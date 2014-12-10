@@ -12,20 +12,21 @@
   (rnrs conditions (6))
   (rnrs syntax-case (6))
   (rnrs records syntactic (6))
-  (assiah bootstrap conditions))
+  (assiah bootstrap conditions)
+  (assiah bootstrap template-types))
  
  (define get-state 
    (lambda (state)
      (car state)))
 
-(define get-state-list
-  (lambda (state)
-    (cdr state)))
+ (define get-state-list
+   (lambda (state)
+     (cdr state)))
 
  (define get-field-table-value 
    (lambda (table key)
-     (hashtable-ref (get-field-table-table table) key '()))))
+     (hashtable-ref (field-table-table table) key '())))
 
  (define get-bit-field-value 
    (lambda (bit-field key)
-     (hashtable-ref (get-bit-field-table bit-field) key '()))))
+     (hashtable-ref (bit-field-table bit-field) key '()))))

@@ -3,7 +3,7 @@
 (library 
  (assiah bootstrap template-generator)
  (export define-state set-state! 
-	 define-field-table define-field)
+	 define-field-table define-bit-field)
  (import
   (rnrs (6))
   (rnrs base (6))
@@ -56,10 +56,10 @@
 
  (define-syntax define-field-table
    (syntax-rules (default =>)
-     ((_ ?name ((?p-0 ... => ?value) ... (default => ?value-n)))
-      (define ?name (make-field-table ((?p-0 ...) . ?value) ... (default . ?value-n))))
-     ((_ ?name ((?p-0 ... => ?value) ...))
-      (define ?name (make-field-table ((?p-0 ...) . ?value) ...)))))
+     ((_ ?name (default => ?default-key) ((?p-0 => ?value) ... ))
+      (define ?name (make-field-table ?default-key '((?p-0 . ?value) ... ))))
+     ((_ ?name ((?p-0 => ?value) ...))
+      (define ?name (make-field-table '() '((?p-0 . ?value) ...))))))
 
 
 
