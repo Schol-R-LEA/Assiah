@@ -89,13 +89,18 @@
     (lambda (ctor)
       (let ((report-error (add-error-reporting 'make-composite-field make-invalid-bit-field-violation)))
 	(lambda (bit-width sub-field-list-values)
-	  ((ctor
-	    bit-width
-	    (let loop ((remaining-values sub-field-list-values))
-	      (if (null? remaining-values)
-		  sub-field-list-values
-		  (if (bit-field? (car remaining-values))
-		      (loop (cdr remaining-values))
+	  (let loop ((remaining-values sub-field-list-values)
+	             (sum 0))
+	    (cond
+	      ((> sum width)
+	       (report-error "Sum of bith widths exceeds total size."))
+	      ((null? remaining-values) 
+	        (ctor bit-width sub-field-list-values))
+              (else 
+                (let* ((field (car remaining-values))
+                       (w (bit-field-width field))) 
+                  (if (bit-field? field)
+		      (loop (cdr remaining-values) (+ sum w))
 		      (report-error
 		       "The list of bit fields contained an element that was not a bit-field"))))))))))))
 
