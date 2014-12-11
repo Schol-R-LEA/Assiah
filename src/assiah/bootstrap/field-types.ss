@@ -1,23 +1,21 @@
 #!r6rs
 
 (library 
- (assiah bootstrap template-generator)
- (export field-table make-field-table field-table? field-table-table field-table-default-key
+ (assiah bootstrap field-types)
+ (export field-table make-field-table field-table? get-field-table get-default-key
 	 bit-field make-bit-field bit-field? bit-field-width bit-field-index bit-field-table
 	 validate-field-values in-bit-width? binary-expansion)
  (import
   (rnrs (6))
   (rnrs base (6))
-  (rnrs bytevectors (6))
   (rnrs hashtables (6))
   (rnrs exceptions (6))
   (rnrs conditions (6))
-  (rnrs mutable-pairs (6))
   (rnrs records syntactic (6))
   (assiah bootstrap conditions))
 
  (define-record-type (field-table make-field-table field-table?)
-   (fields default-key table)
+   (fields (immutable default-key get-default-key) (immutable table get-field-table))
    (protocol 
     (lambda (ctor)
       (lambda (default-key table-list)
@@ -30,7 +28,9 @@
 		  ((not (list? remaining-elements))
 		   (report-error "Table entries must be contained in a list."))				 
 		  ((pair? (car  remaining-elements))
-		   (hashtable-set! temp-table (caar remaining-elements) (cdar remaining-elements))
+		   (hashtable-set! temp-table 
+				   (caar remaining-elements) 
+				   (cdar remaining-elements))
 		   (loop (cdr remaining-elements)))
 		  (else 		      
 		   (report-error "Table entries must be passed as pairs."))))
@@ -57,7 +57,7 @@
 
  (define validate-field-values
    (lambda (table width)
-     (let* ((ht (field-table-table table))
+     (let* ((ht (get-field-table table))
 	    (table-keys (hashtable-keys ht)))
        (let test-key-values ((key-list (vector->list table-keys)))
 	 (cond ((null? key-list) '())
@@ -92,7 +92,7 @@
 	  (let loop ((remaining-values sub-field-list-values)
 	             (sum 0))
 	    (cond
-	      ((> sum width)
+	      ((> sum bit-width)
 	       (report-error "Sum of bit widths exceeds total size."))
 	      ((null? remaining-values) 
 	        (ctor bit-width sub-field-list-values))
@@ -101,7 +101,7 @@
                        (w (bit-field-width field))
                        (s (bit-field-index field)))
                   (cond
-                    ((> s (- width 1))
+                    ((> s (- bit-width 1))
                      (report-error "Bit Index out of bounds."))
                     ((bit-field? field)
 		     (loop (cdr remaining-values) (+ sum w)))
