@@ -106,4 +106,31 @@
 									  (b . 9)
 									  (c . 3))))
 					  (test-error &invalid-bit-width-violation
-						      (make-bit-field 3 0 bar)))))
+						      (make-bit-field 3 0 bar))))
+
+
+		  (test-group "Tests of the underlying composite-field record type"
+			      (test-group "Test for build a bit-field and retrieving a value"
+					  (define-field-table t1 
+					    ((a => 1)
+					     (b => 2)
+					     (c => 3)))
+					  (define-field-table t2 
+					    ((a => 1)
+					     (b => 2)
+					     (c => 3)))
+					  (define-field-table t3 
+					    ((a => 1)
+					     (b => 2)
+					     (c => 3)))					  
+					  (define f1 (make-bit-field 2 0 t1))
+					  (define f2 (make-bit-field 3 2 t2))
+					  (define f3 (make-bit-field 3 5 t3))
+					  (define foo (make-composite-field 
+						       8 
+						       (list (cons 'a f1) 
+							     (cons 'b f2) 
+							     (cons 'c f3))))
+					  (test-assert (composite-field? foo))
+					  (test-equal f2 (get-sub-field foo 'b))
+					  (test-equal 3 (get-sub-field-value foo 'c 'c)))))

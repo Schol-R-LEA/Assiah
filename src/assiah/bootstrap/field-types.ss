@@ -4,6 +4,7 @@
  (assiah bootstrap field-types)
  (export field-table make-field-table field-table? get-field-table get-default-key
 	 bit-field make-bit-field bit-field? bit-field-width bit-field-index bit-field-table
+	 composite-field make-composite-field composite-field? composite-field-width get-subfield-table
 	 validate-field-values in-bit-width? binary-expansion)
  (import
   (rnrs (6))
@@ -84,27 +85,35 @@
      (- (expt 2 width) 1)))
 
  (define-record-type (composite-field make-composite-field composite-field?)
-   (fields width sub-field-list)
+   (fields width (immutable sub-field-table get-subfield-table))
    (protocol
     (lambda (ctor)
-      (let ((report-error (add-error-reporting 'make-composite-field make-invalid-bit-field-violation)))
-	(lambda (bit-width sub-field-list-values)
-	  (let loop ((remaining-values sub-field-list-values)
-	             (sum 0))
+      (lambda (bit-width sub-field-list)
+	(let ((ht (make-hashtable symbol-hash eq?))
+	      (report-error (add-error-reporting 'make-composite-field make-invalid-bit-field-violation)))
+	  (let loop ((remaining-fields sub-field-list)
+		     (sum 0))
 	    (cond
-	      ((> sum bit-width)
-	       (report-error "Sum of bit widths exceeds total size."))
-	      ((null? remaining-values) 
-	        (ctor bit-width sub-field-list-values))
-              (else 
-                (let* ((field (car remaining-values))
-                       (w (bit-field-width field))
-                       (s (bit-field-index field)))
-                  (cond
-                    ((> s (- bit-width 1))
-                     (report-error "Bit Index out of bounds."))
-                    ((bit-field? field)
-		     (loop (cdr remaining-values) (+ sum w)))
-		     (report-error
-		       "The list of bit fields contained an element that was not a bit-field"))))))))))))
+	     ((> sum bit-width)
+	      (report-error "Sum of bit widths exceeds total size."))
+	     ((null? remaining-fields) 
+	      (ctor bit-width ht))
+	     (else 
+	      (let ((value-pair (car remaining-fields)))
+		(if (pair? value-pair)
+		    (let* ((field-name (car value-pair))
+			   (field (cdr value-pair))
+			   (w (bit-field-width field))
+			   (s (bit-field-index field)))
+		      (cond
+		       ((> s (- bit-width 1))
+			(report-error "Bit Index out of bounds."))
+		       ((not (symbol? field-name))
+			(report-error "Invalid field name."))
+		       ((bit-field? field)
+			(hashtable-set! ht field-name field) 
+			(loop (cdr remaining-fields) (+ sum w)))
+		       (report-error
+			"The list of bit fields contained an element that was not a bit-field")))
+		    (report-error "Invalid name-field pair."))))))))))))
 
