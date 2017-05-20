@@ -2,7 +2,7 @@
 
 (library 
  (assiah bootstrap field-interfaces)
- (export define-field-table define-bit-field)
+ (export define-field-table define-field)
  (import
   (rnrs (6))
   (rnrs base (6))
@@ -21,9 +21,11 @@
       (define ?name (make-field-table '() '((?p-0 . ?value) ...))))))
 
 
- (define-syntax define-bit-field
-   (syntax-rules (width bit-index parent)
-     ((_ ?name (width ?w) (bit-index ?bi) (parent ?super))
-      (define ?name (make-bit-field ?w ?bi ?super))))))
+ (define-syntax define-field
+   (syntax-rules (width bit-index table sub-fields)
+     ((_ ?name (width ?w) (bit-index ?bi) (table ?super))
+      (define ?name (make-bit-field ?w ?bi ?super)))
+     ((_ ?name (width ?w) (sub-fields ?field-0 ...))
+      (define ?name (make-composite-field ?w `((,'?field-0 . ?field-0) ...)))))))
 
 
